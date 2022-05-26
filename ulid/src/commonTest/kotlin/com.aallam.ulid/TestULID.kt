@@ -1,7 +1,10 @@
 package com.aallam.ulid
 
 import com.aallam.ulid.utils.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class TestULID {
 
@@ -112,68 +115,35 @@ class TestULID {
     }
 
     @Test
-    fun test_ulid_value_toBytes() {
-        class Input(val mostSignificantBits: Long, val leastSignificantBits: Long, val expectedData: ByteArray)
-
-        val inputs = listOf(
-            Input(0L, 0L, ZeroBytes),
-            Input(AllBitsSet, AllBitsSet, FullBytes),
-            Input(PatternMostSignificantBits, PatternLeastSignificantBits, PatternBytes),
+    fun test_fromBytes() {
+        class Input(
+            val data: ByteArray,
+            val mostSignificantBits: Long,
+            val leastSignificantBits: Long,
         )
 
+        val inputs = listOf(
+            Input(ZeroBytes, 0L, 0L),
+            Input(FullBytes, AllBitsSet, AllBitsSet),
+            Input(PatternBytes, PatternMostSignificantBits, PatternLeastSignificantBits),
+        )
+
+        val ulid = ULID()
         for (input in inputs) {
             input.run {
-                val ulidValue = ULID.Value(mostSignificantBits, leastSignificantBits)
-                val bytes = ulidValue.toBytes()
-                assertContentEquals(expectedData, bytes)
+                val ulidValue = ulid.fromBytes(data)
+                assertEquals(ulidValue.mostSignificantBits, mostSignificantBits)
+                assertEquals(ulidValue.leastSignificantBits, leastSignificantBits)
             }
         }
     }
 
     @Test
-    fun test_ulid_value_comparable() {
-        class Input(
-            val mostSignificantBits1: Long,
-            val leastSignificantBits1: Long,
-            val mostSignificantBits2: Long,
-            val leastSignificantBits2: Long,
-            val compare: Int,
-        )
+    fun test_fromBytes_fails() {
+        val ulid = ULID()
 
-        val inputs = listOf(
-            Input(0L, 0L, 0L, 0L, 0),
-            Input(AllBitsSet, AllBitsSet, AllBitsSet, AllBitsSet, 0),
-            Input(
-                PatternMostSignificantBits, PatternLeastSignificantBits,
-                PatternMostSignificantBits, PatternLeastSignificantBits, 0
-            ),
-            Input(0L, 1L, 0L, 0L, 1),
-            Input(1 shl 16, 0L, 0L, 0L, 1),
-        )
-
-        for (input in inputs) {
-            input.run {
-                val value1 = ULID.Value(mostSignificantBits1, leastSignificantBits1)
-                val value2 = ULID.Value(mostSignificantBits2, leastSignificantBits2)
-
-                val equals12 = value1 == value2
-                val equals21 = value2 == value1
-                val compare12 = value1.compareTo(value2)
-                val compare21 = value2.compareTo(value1)
-                val hash1 = value1.hashCode()
-                val hash2 = value2.hashCode()
-
-                assertEquals(equals12, equals21)
-                assertEquals(compare12, compare21 * -1)
-                when (compare) {
-                    0 -> assertEquals(hash1, hash2)
-                    else -> {
-                        assertEquals(compare12, compare)
-                        assertFalse { equals12 }
-                    }
-                }
-            }
-        }
+        assertFailsWith<IllegalArgumentException> { ulid.fromBytes(ByteArray(15)) }
+        assertFailsWith<IllegalArgumentException> { ulid.fromBytes(ByteArray(17)) }
     }
 
     private fun partsOf(ulid: String): Pair<String, String> = ulid.substring(0, 10) to ulid.substring(10)
