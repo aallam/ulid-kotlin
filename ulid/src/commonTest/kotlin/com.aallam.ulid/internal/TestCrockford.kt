@@ -6,8 +6,6 @@ import kotlin.test.assertEquals
 
 class TestCrockford {
 
-    private val crockford = Crockford()
-
     @Test
     fun testWrite() {
         class Input(
@@ -84,7 +82,7 @@ class TestCrockford {
         for (input in inputs) {
             input.run {
                 val buffer = CharArray(bufferSize) { '#' }
-                with(crockford) {
+                with(Crockford) {
                     buffer.write(inputValue, length, offset)
                 }
                 val result = buffer.concatToString()
@@ -164,7 +162,7 @@ class TestCrockford {
         for (input in inputs) {
             input.run {
                 val builder = StringBuilder()
-                with(crockford) {
+                with(Crockford) {
                     builder.append(inputValue, length)
                 }
                 val result = builder.toString()

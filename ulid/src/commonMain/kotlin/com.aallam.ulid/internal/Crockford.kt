@@ -3,7 +3,7 @@ package com.aallam.ulid.internal
 /**
  * [Crockford's Base 32](https://www.crockford.com/base32.html).
  */
-internal class Crockford {
+internal object Crockford {
 
     internal fun CharArray.write(value: Long, count: Int, offset: Int) {
         for (i in 0 until count) {

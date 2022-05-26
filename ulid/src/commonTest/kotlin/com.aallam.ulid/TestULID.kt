@@ -8,14 +8,13 @@ import kotlin.test.assertTrue
 class TestULID {
 
     @Test
-    fun nextULID_with_random() {
+    fun test_nextULID() {
         val ulid = ULID()
 
         val result = ulid.nextULID()
 
         assertEquals(26, result.length)
-        val timePart = result.substring(0, 10)
-        val randomPart = result.substring(10)
+        val (timePart, randomPart) = partsOf(result)
         assertTrue { PastTimestampPart < timePart }
         assertTrue { MaxTimestampPart >= timePart }
         assertTrue { MinRandomPart <= randomPart }
@@ -23,7 +22,7 @@ class TestULID {
     }
 
     @Test
-    fun nextULID_with_random_0() {
+    fun test_nextULID_with_random_0() {
         val random = MockRandom(0)
         val ulid = ULID(random)
 
@@ -31,15 +30,14 @@ class TestULID {
 
         assertEquals(0, random.nextLong())
         assertEquals(26, result.length)
-        val timePart = result.substring(0, 10)
-        val randomPart = result.substring(10)
+        val (timePart, randomPart) = partsOf(result)
         assertTrue { PastTimestampPart < timePart }
         assertTrue { MaxTimestampPart >= timePart }
         assertEquals(MinRandomPart, randomPart)
     }
 
     @Test
-    fun nextULID_with_random_minus_1() {
+    fun test_nextULID_with_random_minus_1() {
         val random = MockRandom(-1)
         val ulid = ULID(random)
 
@@ -47,10 +45,55 @@ class TestULID {
 
         assertEquals(-1, random.nextLong())
         assertEquals(26, result.length)
-        val timePart = result.substring(0, 10)
-        val randomPart = result.substring(10)
+        val (timePart, randomPart) = partsOf(result)
         assertTrue { PastTimestampPart < timePart }
         assertTrue { MaxTimestampPart >= timePart }
         assertEquals(MaxRandomPart, randomPart)
     }
+
+    @Test
+    fun test_nextValue() {
+        val ulid = ULID()
+
+        val result = ulid.nextValue().toString()
+
+        assertEquals(26, result.length)
+        val (timePart, randomPart) = partsOf(result)
+        assertTrue { PastTimestampPart < timePart }
+        assertTrue { MaxTimestampPart >= timePart }
+        assertTrue { MinRandomPart <= randomPart }
+        assertTrue { MaxRandomPart >= randomPart }
+    }
+
+    @Test
+    fun test_nextValue_with_random_0() {
+        val random = MockRandom(0)
+        val ulid = ULID(random)
+
+        val result = ulid.nextValue().toString()
+
+        assertEquals(0, random.nextLong())
+        assertEquals(26, result.length)
+        val (timePart, randomPart) = partsOf(result)
+        assertTrue { PastTimestampPart < timePart }
+        assertTrue { MaxTimestampPart >= timePart }
+        assertEquals(MinRandomPart, randomPart)
+    }
+
+    @Test
+    fun test_nextValue_with_random_minus_1() {
+        val random = MockRandom(-1)
+        val ulid = ULID(random)
+
+        val result = ulid.nextValue().toString()
+
+        assertEquals(-1, random.nextLong())
+        assertEquals(26, result.length)
+        val (timePart, randomPart) = partsOf(result)
+        assertTrue { PastTimestampPart < timePart }
+        assertTrue { MaxTimestampPart >= timePart }
+        assertEquals(MaxRandomPart, randomPart)
+    }
+
+    private fun partsOf(ulid: String): Pair<String, String> = ulid.substring(0, 10) to ulid.substring(10)
 }
