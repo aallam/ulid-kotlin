@@ -1,9 +1,7 @@
 package com.aallam.ulid
 
 import com.aallam.ulid.utils.*
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class TestULID {
 
@@ -52,6 +50,15 @@ class TestULID {
     }
 
     @Test
+    fun test_nextULID_invalid_timestamp() {
+        val ulid = ULID()
+
+        assertFailsWith<IllegalArgumentException> {
+            ulid.nextULID(0x0001000000000000L)
+        }
+    }
+
+    @Test
     fun test_nextValue() {
         val ulid = ULID()
 
@@ -93,6 +100,15 @@ class TestULID {
         assertTrue { PastTimestampPart < timePart }
         assertTrue { MaxTimestampPart >= timePart }
         assertEquals(MaxRandomPart, randomPart)
+    }
+
+    @Test
+    fun test_nextValue_invalid_timestamp() {
+        val ulid = ULID()
+
+        assertFailsWith<IllegalArgumentException> {
+            ulid.nextValue(0x0001000000000000L)
+        }
     }
 
     private fun partsOf(ulid: String): Pair<String, String> = ulid.substring(0, 10) to ulid.substring(10)
