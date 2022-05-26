@@ -38,9 +38,9 @@ public class ULID(private val random: Random = Random) {
     }
 
     public data class Value(
-        private val mostSignificantBits: Long,
-        private val leastSignificantBits: Long
-    ) {
+        val mostSignificantBits: Long,
+        val leastSignificantBits: Long
+    ) : Comparable<Value> {
         public fun timestamp(): Long {
             return mostSignificantBits ushr 16
         }
@@ -50,6 +50,14 @@ public class ULID(private val random: Random = Random) {
             for (i in 0..7) bytes[i] = (mostSignificantBits shr ((7 - i) * 8) and 0xFFL).toByte()
             for (i in 8..15) bytes[i] = (leastSignificantBits shr ((15 - i) * 8) and 0xFFL).toByte()
             return bytes
+        }
+
+        override fun compareTo(other: Value): Int {
+            return if (mostSignificantBits < other.mostSignificantBits) -1
+            else if (mostSignificantBits > other.mostSignificantBits) 1
+            else if (leastSignificantBits < other.leastSignificantBits) -1
+            else if (leastSignificantBits > other.leastSignificantBits) 1
+            else 0
         }
 
         override fun toString(): String {
