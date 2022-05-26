@@ -16,7 +16,11 @@ kotlin {
     native()
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.kotlin.datetime)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test.common)
