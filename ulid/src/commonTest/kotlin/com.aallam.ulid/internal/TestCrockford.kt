@@ -4,10 +4,12 @@ import com.aallam.ulid.utils.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class TestOperations {
+class TestCrockford {
+
+    private val crockford = Crockford()
 
     @Test
-    fun testWriteCrockford() {
+    fun testWrite() {
         class Input(
             val inputValue: Long,
             val bufferSize: Int,
@@ -82,8 +84,90 @@ class TestOperations {
         for (input in inputs) {
             input.run {
                 val buffer = CharArray(bufferSize) { '#' }
-                buffer.writeCrockford(inputValue, length, offset)
+                with(crockford) {
+                    buffer.write(inputValue, length, offset)
+                }
                 val result = buffer.concatToString()
+                assertEquals(expectedResult, result)
+            }
+        }
+    }
+
+    @Test
+    fun testAppend() {
+        class Input(
+            val inputValue: Long,
+            val length: Int,
+            val expectedResult: String
+        )
+
+        val inputs = listOf(
+            Input(0L, 1, "0"),
+            Input(1L, 1, "1"),
+            Input(2L, 1, "2"),
+            Input(3L, 1, "3"),
+            Input(4L, 1, "4"),
+            Input(5L, 1, "5"),
+            Input(6L, 1, "6"),
+            Input(7L, 1, "7"),
+            Input(8L, 1, "8"),
+            Input(9L, 1, "9"),
+            Input(10L, 1, "A"),
+            Input(11L, 1, "B"),
+            Input(12L, 1, "C"),
+            Input(13L, 1, "D"),
+            Input(14L, 1, "E"),
+            Input(15L, 1, "F"),
+            Input(16L, 1, "G"),
+            Input(17L, 1, "H"),
+            Input(18L, 1, "J"),
+            Input(19L, 1, "K"),
+            Input(20L, 1, "M"),
+            Input(21L, 1, "N"),
+            Input(22L, 1, "P"),
+            Input(23L, 1, "Q"),
+            Input(24L, 1, "R"),
+            Input(25L, 1, "S"),
+            Input(26L, 1, "T"),
+            Input(27L, 1, "V"),
+            Input(28L, 1, "W"),
+            Input(29L, 1, "X"),
+            Input(30L, 1, "Y"),
+            Input(31L, 1, "Z"),
+            Input(32L, 1, "0"),
+            Input(32L, 2, "10"),
+            Input(0L, 0, ""),
+            Input(0L, 13, "0000000000000"),
+            Input(194L, 2, "62"),
+            Input(45_678L, 4, "1CKE"),
+            Input(393_619L, 4, "C0CK"),
+            Input(398_373L, 4, "C515"),
+            Input(421_562L, 4, "CVNT"),
+            Input(456_789L, 4, "DY2N"),
+            Input(519_571L, 4, "FVCK"),
+            Input(3_838_385_658_376_483L, 11, "3D2ZQ6TVC93"),
+            Input(0x1FL, 1, "Z"),
+            Input(0x1FL shl 5, 1, "0"),
+            Input(0x1FL shl 5, 2, "Z0"),
+            Input(0x1FL shl 10, 1, "0"),
+            Input(0x1FL shl 10, 2, "00"),
+            Input(0x1FL shl 10, 3, "Z00"),
+            Input(0x1FL shl 15, 3, "000"),
+            Input(0x1FL shl 15, 4, "Z000"),
+            Input(0x1FL shl 55, 13, "0Z00000000000"),
+            Input(0x1FL shl 60, 13, "F000000000000"),
+            Input(AllBitsSet, 13, "FZZZZZZZZZZZZ"),
+            Input(PastTimestamp, 10, PastTimestampPart),
+            Input(MaxTimestamp, 10, MaxTimestampPart),
+        )
+
+        for (input in inputs) {
+            input.run {
+                val builder = StringBuilder()
+                with(crockford) {
+                    builder.append(inputValue, length)
+                }
+                val result = builder.toString()
                 assertEquals(expectedResult, result)
             }
         }
