@@ -9,7 +9,7 @@ public class ULID(private val random: Random = Random) {
 
     public fun nextULID(): String {
         val now = Clock.System.now()
-        return nextULID(now.epochSeconds)
+        return nextULID(now.toEpochMilliseconds())
     }
 
     public fun nextULID(timestamp: Long): String {
