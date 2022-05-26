@@ -111,5 +111,24 @@ class TestULID {
         }
     }
 
+    @Test
+    fun test_ulid_value_toBytes() {
+        class Input(val mostSignificantBits: Long, val leastSignificantBits: Long, val expectedData: ByteArray)
+
+        val inputs = listOf(
+            Input(0L, 0L, ZeroBytes),
+            Input(AllBitsSet, AllBitsSet, FullBytes),
+            Input(PatternMostSignificantBits, PatternLeastSignificantBits, PatternBytes),
+        )
+
+        for (input in inputs) {
+            input.run {
+                val ulidValue = ULID.Value(mostSignificantBits, leastSignificantBits)
+                val bytes = ulidValue.toBytes()
+                assertContentEquals(expectedData, bytes)
+            }
+        }
+    }
+
     private fun partsOf(ulid: String): Pair<String, String> = ulid.substring(0, 10) to ulid.substring(10)
 }

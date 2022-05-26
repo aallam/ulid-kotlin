@@ -45,6 +45,13 @@ public class ULID(private val random: Random = Random) {
             return mostSignificantBits ushr 16
         }
 
+        public fun toBytes(): ByteArray {
+            val bytes = ByteArray(16)
+            for (i in 0..7) bytes[i] = (mostSignificantBits shr ((7 - i) * 8) and 0xFFL).toByte()
+            for (i in 8..15) bytes[i] = (leastSignificantBits shr ((15 - i) * 8) and 0xFFL).toByte()
+            return bytes
+        }
+
         override fun toString(): String {
             val buffer = CharArray(26)
             with(Crockford) {
