@@ -20,5 +20,6 @@ public class ULID(private val random: Random = Random) {
         buffer.writeCrockford(random.nextLong(), 8, 18)
         return buffer.concatToString()
     }
-}
 
+    public companion object
+}
