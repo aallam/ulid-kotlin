@@ -61,7 +61,7 @@ public interface ULID {
         /**
          * Get timestamp.
          */
-        public fun timestamp(): Long
+        public val timestamp: Long
 
         /**
          * Generate the [ByteArray] for this [ULID.Value].

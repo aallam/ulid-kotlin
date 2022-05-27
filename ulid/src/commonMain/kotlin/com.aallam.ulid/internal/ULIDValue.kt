@@ -10,9 +10,8 @@ internal data class ULIDValue(
     override val leastSignificantBits: Long,
 ) : ULID.Value {
 
-    override fun timestamp(): Long {
-        return mostSignificantBits ushr 16
-    }
+    override val timestamp: Long
+        get() = mostSignificantBits ushr 16
 
     override fun toBytes(): ByteArray {
         val bytes = ByteArray(16)
@@ -32,7 +31,7 @@ internal data class ULIDValue(
     override fun toString(): String {
         val buffer = CharArray(26)
         with(Crockford) {
-            buffer.write(timestamp(), 10, 0)
+            buffer.write(timestamp, 10, 0)
             var value = mostSignificantBits and 0xFFFFL shl 24
             val interim = leastSignificantBits ushr 40
             value = value or interim
