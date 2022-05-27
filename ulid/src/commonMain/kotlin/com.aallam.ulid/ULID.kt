@@ -1,87 +1,92 @@
 package com.aallam.ulid
 
-import com.aallam.ulid.internal.Crockford
-import com.aallam.ulid.internal.requireTimestamp
-import kotlinx.datetime.Clock
+import com.aallam.ulid.internal.RandomULID
+import com.aallam.ulid.internal.RandomULID.Companion.Default
+import com.aallam.ulid.internal.ULIDValue
 import kotlin.random.Random
 
-public class ULID(private val random: Random = Random) {
+/**
+ * Universally Unique Lexicographically Sortable Identifier.
+ *
+ * [Specification](https://github.com/ulid/spec#specification)
+ */
+public interface ULID {
 
-    public fun nextULID(): String {
-        val now = Clock.System.now()
-        return nextULID(now.toEpochMilliseconds())
+    /**
+     * Generate a ULID String.
+     */
+    public fun nextULID(): String
+
+    /**
+     * Generate a ULID String.
+     *
+     * @param timestamp timestamp epoch in milliseconds
+     */
+    public fun nextULID(timestamp: Long): String
+
+    /**
+     * Generate a ULID [Value] instance.
+     */
+    public fun nextValue(): Value
+
+    /**
+     * Generate a ULID [Value] instance.
+     *
+     * @param timestamp timestamp epoch in milliseconds
+     */
+    public fun nextValue(timestamp: Long): Value
+
+    /**
+     * Generate a [ULID.Value] from given bytes.
+     *
+     * @param data byte array, data must be 16 bytes in length.
+     */
+    public fun fromBytes(data: ByteArray): Value
+
+    /**
+     * ULID Value
+     */
+    public interface Value : Comparable<Value> {
+
+        /**
+         * The most significant 64 bits of this ULID.
+         */
+        public val mostSignificantBits: Long
+
+        /**
+         * The least significant 64 bits of this ULID.
+         */
+        public val leastSignificantBits: Long
+
+        /**
+         * Get timestamp.
+         */
+        public fun timestamp(): Long
+
+        /**
+         * Generate the [ByteArray] for this [ULID.Value].
+         */
+        public fun toBytes(): ByteArray
+
+        public companion object
     }
 
-    public fun nextULID(timestamp: Long): String {
-        requireTimestamp(timestamp)
-        val buffer = CharArray(26)
-        with(Crockford) {
-            buffer.write(timestamp, 10, 0)
-            buffer.write(random.nextLong(), 8, 10)
-            buffer.write(random.nextLong(), 8, 18)
-        }
-        return buffer.concatToString()
+    public companion object : ULID by Default {
+
+        /**
+         * Create [Value] instance.
+         *
+         * @param mostSignificantBits most significant bits
+         * @param leastSignificantBits least significant bits
+         */
+        public fun Value(mostSignificantBits: Long, leastSignificantBits: Long): Value =
+            ULIDValue(mostSignificantBits, leastSignificantBits)
     }
-
-    public fun nextValue(): Value {
-        val now = Clock.System.now()
-        return nextValue(now.toEpochMilliseconds())
-    }
-
-    public fun nextValue(timestamp: Long): Value {
-        requireTimestamp(timestamp)
-        var mostSignificantBits = random.nextLong()
-        val leastSignificantBits = random.nextLong()
-        mostSignificantBits = mostSignificantBits and 0xFFFFL
-        mostSignificantBits = mostSignificantBits or (timestamp shl 16)
-        return Value(mostSignificantBits, leastSignificantBits)
-    }
-
-    public fun fromBytes(data: ByteArray): Value {
-        require(data.size == 16) { "data must be 16 bytes in length" }
-        var mostSignificantBits: Long = 0
-        var leastSignificantBits: Long = 0
-        for (i in 0..7) mostSignificantBits = (mostSignificantBits shl 8) or (data[i].toLong() and 0xFF)
-        for (i in 8..15) leastSignificantBits = (leastSignificantBits shl 8) or (data[i].toLong() and 0xff)
-        return Value(mostSignificantBits, leastSignificantBits)
-    }
-
-    public data class Value(
-        val mostSignificantBits: Long,
-        val leastSignificantBits: Long
-    ) : Comparable<Value> {
-        public fun timestamp(): Long {
-            return mostSignificantBits ushr 16
-        }
-
-        public fun toBytes(): ByteArray {
-            val bytes = ByteArray(16)
-            for (i in 0..7) bytes[i] = (mostSignificantBits shr ((7 - i) * 8) and 0xFFL).toByte()
-            for (i in 8..15) bytes[i] = (leastSignificantBits shr ((15 - i) * 8) and 0xFFL).toByte()
-            return bytes
-        }
-
-        override fun compareTo(other: Value): Int {
-            return if (mostSignificantBits < other.mostSignificantBits) -1
-            else if (mostSignificantBits > other.mostSignificantBits) 1
-            else if (leastSignificantBits < other.leastSignificantBits) -1
-            else if (leastSignificantBits > other.leastSignificantBits) 1
-            else 0
-        }
-
-        override fun toString(): String {
-            val buffer = CharArray(26)
-            with(Crockford) {
-                buffer.write(timestamp(), 10, 0)
-                var value = mostSignificantBits and 0xFFFFL shl 24
-                val interim = leastSignificantBits ushr 40
-                value = value or interim
-                buffer.write(value, 8, 10)
-                buffer.write(leastSignificantBits, 8, 18)
-            }
-            return buffer.concatToString()
-        }
-    }
-
-    public companion object
 }
+
+/**
+ * Creates [ULID] instance.
+ *
+ * @param random random number generator
+ */
+public fun ULID(random: Random = Random): ULID = RandomULID(random)

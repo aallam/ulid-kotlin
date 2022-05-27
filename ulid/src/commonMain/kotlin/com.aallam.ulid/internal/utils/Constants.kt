@@ -1,4 +1,4 @@
-package com.aallam.ulid.internal
+package com.aallam.ulid.internal.utils
 
 internal const val Mask: Long = 0x1F
 internal const val MaskBits = 5

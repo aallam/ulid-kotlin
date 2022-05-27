@@ -1,5 +1,9 @@
 package com.aallam.ulid.internal
 
+import com.aallam.ulid.internal.utils.EncodingChars
+import com.aallam.ulid.internal.utils.Mask
+import com.aallam.ulid.internal.utils.MaskBits
+
 /**
  * [Crockford's Base 32](https://www.crockford.com/base32.html).
  */

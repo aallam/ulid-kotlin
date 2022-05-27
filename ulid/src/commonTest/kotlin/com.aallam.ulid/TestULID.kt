@@ -10,9 +10,7 @@ class TestULID {
 
     @Test
     fun test_nextULID() {
-        val ulid = ULID()
-
-        val result = ulid.nextULID()
+        val result = ULID.nextULID()
 
         assertEquals(26, result.length)
         val (timePart, randomPart) = partsOf(result)
@@ -54,18 +52,14 @@ class TestULID {
 
     @Test
     fun test_nextULID_invalid_timestamp() {
-        val ulid = ULID()
-
         assertFailsWith<IllegalArgumentException> {
-            ulid.nextULID(0x0001000000000000L)
+            ULID.nextULID(0x0001000000000000L)
         }
     }
 
     @Test
     fun test_nextValue() {
-        val ulid = ULID()
-
-        val result = ulid.nextValue().toString()
+        val result = ULID.nextValue().toString()
 
         assertEquals(26, result.length)
         val (timePart, randomPart) = partsOf(result)
@@ -107,10 +101,8 @@ class TestULID {
 
     @Test
     fun test_nextValue_invalid_timestamp() {
-        val ulid = ULID()
-
         assertFailsWith<IllegalArgumentException> {
-            ulid.nextValue(0x0001000000000000L)
+            ULID.nextValue(0x0001000000000000L)
         }
     }
 
@@ -128,10 +120,9 @@ class TestULID {
             Input(PatternBytes, PatternMostSignificantBits, PatternLeastSignificantBits),
         )
 
-        val ulid = ULID()
         for (input in inputs) {
             input.run {
-                val ulidValue = ulid.fromBytes(data)
+                val ulidValue = ULID.fromBytes(data)
                 assertEquals(ulidValue.mostSignificantBits, mostSignificantBits)
                 assertEquals(ulidValue.leastSignificantBits, leastSignificantBits)
             }
@@ -140,10 +131,8 @@ class TestULID {
 
     @Test
     fun test_fromBytes_fails() {
-        val ulid = ULID()
-
-        assertFailsWith<IllegalArgumentException> { ulid.fromBytes(ByteArray(15)) }
-        assertFailsWith<IllegalArgumentException> { ulid.fromBytes(ByteArray(17)) }
+        assertFailsWith<IllegalArgumentException> { ULID.fromBytes(ByteArray(15)) }
+        assertFailsWith<IllegalArgumentException> { ULID.fromBytes(ByteArray(17)) }
     }
 
     private fun partsOf(ulid: String): Pair<String, String> = ulid.substring(0, 10) to ulid.substring(10)
