@@ -135,5 +135,72 @@ class TestULIDFactory {
         assertFailsWith<IllegalArgumentException> { ULID.fromBytes(ByteArray(17)) }
     }
 
+    @Test
+    fun test_parseULID_and_toString() {
+        class Input(
+            val ulidString: String, val expectedTimestamp: Long
+        )
+
+        val inputs = listOf(
+            Input(PastTimestampPart + "0000000000000000", PastTimestamp),
+            Input(PastTimestampPart + "ZZZZZZZZZZZZZZZZ", PastTimestamp),
+            Input(PastTimestampPart + "123456789ABCDEFG", PastTimestamp),
+            Input(PastTimestampPart + "1000000000000000", PastTimestamp),
+            Input(PastTimestampPart + "1000000000000001", PastTimestamp),
+            Input(PastTimestampPart + "0001000000000001", PastTimestamp),
+            Input(PastTimestampPart + "0100000000000001", PastTimestamp),
+            Input(PastTimestampPart + "0000000000000001", PastTimestamp),
+            Input(MinTimestampPart + "123456789ABCDEFG", MinTimestamp),
+            Input(MaxTimestampPart + "123456789ABCDEFG", MaxTimestamp),
+        )
+
+        for (input in inputs) {
+            input.run {
+                val ulid = ULID.parseULID(ulidString)
+                assertEquals(ulidString, ulid.toString())
+                assertEquals(expectedTimestamp, ulid.timestamp)
+            }
+        }
+    }
+
+    @Test
+    fun test_parseULID_toString_invalid() {
+        class Input(
+            val ulidString: String,
+            val expectedString: String,
+            val expectedTimestamp: Long,
+        )
+
+        val inputs = listOf(
+            Input(PastTimestampPart + "0l00000000000000", PastTimestampPart + "0100000000000000", PastTimestamp),
+            Input(PastTimestampPart + "0L00000000000000", PastTimestampPart + "0100000000000000", PastTimestamp),
+            Input(PastTimestampPart + "0i00000000000000", PastTimestampPart + "0100000000000000", PastTimestamp),
+            Input(PastTimestampPart + "0I00000000000000", PastTimestampPart + "0100000000000000", PastTimestamp),
+            Input(PastTimestampPart + "0o00000000000000", PastTimestampPart + "0000000000000000", PastTimestamp),
+            Input(PastTimestampPart + "0O00000000000000", PastTimestampPart + "0000000000000000", PastTimestamp),
+        )
+
+        for (input in inputs) {
+            input.run {
+                val ulid = ULID.parseULID(ulidString)
+                assertEquals(expectedString, ulid.toString())
+                assertEquals(expectedTimestamp, ulid.timestamp)
+            }
+        }
+    }
+
+    @Test
+    fun test_parseULID_fails() {
+        val inputs = listOf(
+            "0000000000000000000000000",
+            "000000000000000000000000000",
+            "80000000000000000000000000",
+        )
+
+        for (input in inputs) {
+            assertFailsWith<IllegalArgumentException> { ULID.parseULID(input) }
+        }
+    }
+
     private fun partsOf(ulid: String): Pair<String, String> = ulid.substring(0, 10) to ulid.substring(10)
 }

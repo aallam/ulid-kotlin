@@ -20,6 +20,15 @@ internal data class ULIDValue(
         return bytes
     }
 
+    override fun increment(): ULID {
+        if (leastSignificantBits != -0x1L) return ULIDValue(mostSignificantBits, leastSignificantBits + 1)
+        return if ((mostSignificantBits and RandomMsbMask) != RandomMsbMask) {
+            ULIDValue(mostSignificantBits + 1, 0)
+        } else {
+            ULIDValue(mostSignificantBits and TimestampMsbMask, 0)
+        }
+    }
+
     override fun compareTo(other: ULID): Int {
         return if (mostSignificantBits < other.mostSignificantBits) -1
         else if (mostSignificantBits > other.mostSignificantBits) 1

@@ -3,10 +3,16 @@ package com.aallam.ulid.utils
 const val AllBitsSet = -0x1L
 const val PastTimestamp = 1481195424879L
 const val PastTimestampPart = "01B3F2133F"
+
 const val MaxTimestamp = 0xFFFFFFFFFFFFL
 const val MaxTimestampPart = "7ZZZZZZZZZ"
-const val MinRandomPart = "0000000000000000"
+
+const val MinTimestamp = 0x0L
+const val MinTimestampPart: String = "0000000000"
+
 const val MaxRandomPart = "ZZZZZZZZZZZZZZZZ"
+const val MinRandomPart = "0000000000000000"
+
 const val PatternMostSignificantBits = 0x0011_2233_4455_6677L
 const val PatternLeastSignificantBits = -0x7766_5544_3322_1101L
 
