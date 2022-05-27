@@ -3,12 +3,12 @@ package com.aallam.ulid.internal
 import com.aallam.ulid.ULID
 
 /**
- * Implementation of [ULID.Value].
+ * Implementation of [ULID].
  */
 internal data class ULIDValue(
     override val mostSignificantBits: Long,
     override val leastSignificantBits: Long,
-) : ULID.Value {
+) : ULID {
 
     override val timestamp: Long
         get() = mostSignificantBits ushr 16
@@ -20,7 +20,7 @@ internal data class ULIDValue(
         return bytes
     }
 
-    override fun compareTo(other: ULID.Value): Int {
+    override fun compareTo(other: ULID): Int {
         return if (mostSignificantBits < other.mostSignificantBits) -1
         else if (mostSignificantBits > other.mostSignificantBits) 1
         else if (leastSignificantBits < other.leastSignificantBits) -1
@@ -30,14 +30,12 @@ internal data class ULIDValue(
 
     override fun toString(): String {
         val buffer = CharArray(26)
-        with(Crockford) {
-            buffer.write(timestamp, 10, 0)
-            var value = mostSignificantBits and 0xFFFFL shl 24
-            val interim = leastSignificantBits ushr 40
-            value = value or interim
-            buffer.write(value, 8, 10)
-            buffer.write(leastSignificantBits, 8, 18)
-        }
+        buffer.write(timestamp, 10, 0)
+        var value = mostSignificantBits and 0xFFFFL shl 24
+        val interim = leastSignificantBits ushr 40
+        value = value or interim
+        buffer.write(value, 8, 10)
+        buffer.write(leastSignificantBits, 8, 18)
         return buffer.concatToString()
     }
 }

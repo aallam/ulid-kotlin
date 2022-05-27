@@ -1,8 +1,7 @@
 package com.aallam.ulid
 
-import com.aallam.ulid.internal.RandomULID
-import com.aallam.ulid.internal.RandomULID.Companion.Default
-import com.aallam.ulid.internal.ULIDValue
+import com.aallam.ulid.internal.ULIDFactory
+import com.aallam.ulid.internal.ULIDFactory.Companion.Default
 import kotlin.random.Random
 
 /**
@@ -10,83 +9,64 @@ import kotlin.random.Random
  *
  * [Specification](https://github.com/ulid/spec#specification)
  */
-public interface ULID {
+public interface ULID : Comparable<ULID> {
 
     /**
-     * Generate a ULID String.
+     * The most significant 64 bits of this ULID.
      */
-    public fun nextULID(): String
+    public val mostSignificantBits: Long
 
     /**
-     * Generate a ULID String.
-     *
-     * @param timestamp timestamp epoch in milliseconds
+     * The least significant 64 bits of this ULID.
      */
-    public fun nextULID(timestamp: Long): String
+    public val leastSignificantBits: Long
 
     /**
-     * Generate a ULID [Value] instance.
+     * Get timestamp.
      */
-    public fun nextValue(): Value
+    public val timestamp: Long
 
     /**
-     * Generate a ULID [Value] instance.
-     *
-     * @param timestamp timestamp epoch in milliseconds
+     * Generate the [ByteArray] for this [ULID].
      */
-    public fun nextValue(timestamp: Long): Value
+    public fun toBytes(): ByteArray
 
-    /**
-     * Generate a [ULID.Value] from given bytes.
-     *
-     * @param data byte array, data must be 16 bytes in length.
-     */
-    public fun fromBytes(data: ByteArray): Value
-
-    /**
-     * ULID Value
-     */
-    public interface Value : Comparable<Value> {
+    public interface Factory {
 
         /**
-         * The most significant 64 bits of this ULID.
+         * Generate a ULID String.
          */
-        public val mostSignificantBits: Long
+        public fun nextULIDString(): String
 
         /**
-         * The least significant 64 bits of this ULID.
+         * Generate a ULID String.
+         *
+         * @param timestamp timestamp epoch in milliseconds
          */
-        public val leastSignificantBits: Long
+        public fun nextULIDString(timestamp: Long): String
 
         /**
-         * Get timestamp.
+         * Generate a [ULID] instance.
          */
-        public val timestamp: Long
+        public fun nextULID(): ULID
 
         /**
-         * Generate the [ByteArray] for this [ULID.Value].
+         * Generate a [ULID].
+         *
+         * @param timestamp timestamp epoch in milliseconds
          */
-        public fun toBytes(): ByteArray
+        public fun nextULID(timestamp: Long): ULID
 
-        public companion object
+        /**
+         * Generate a [ULID] from given bytes.
+         *
+         * @param data byte array, data must be 16 bytes in length.
+         */
+        public fun fromBytes(data: ByteArray): ULID
     }
 
-    public companion object : ULID by Default {
+    public companion object : Factory by Default {
 
-        /**
-         * Create [Value] instance.
-         *
-         * @param mostSignificantBits most significant bits
-         * @param leastSignificantBits least significant bits
-         */
-        public fun Value(mostSignificantBits: Long, leastSignificantBits: Long): Value =
-            ULIDValue(mostSignificantBits, leastSignificantBits)
+        public fun Factory(random: Random = Random): Factory = ULIDFactory(random)
     }
 }
-
-/**
- * Creates [ULID] instance.
- *
- * @param random random number generator
- */
-public fun ULID(random: Random = Random): ULID = RandomULID(random)

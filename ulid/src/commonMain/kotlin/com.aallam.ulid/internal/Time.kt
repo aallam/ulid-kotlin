@@ -1,4 +1,4 @@
-package com.aallam.ulid.internal.utils
+package com.aallam.ulid.internal
 
 /**
  * Require valid timestamp.

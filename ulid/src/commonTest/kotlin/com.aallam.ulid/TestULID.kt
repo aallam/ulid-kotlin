@@ -1,139 +1,76 @@
 package com.aallam.ulid
 
+import com.aallam.ulid.internal.ULIDValue
 import com.aallam.ulid.utils.*
 import kotlin.test.Test
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
 class TestULID {
 
     @Test
-    fun test_nextULID() {
-        val result = ULID.nextULID()
-
-        assertEquals(26, result.length)
-        val (timePart, randomPart) = partsOf(result)
-        assertTrue { PastTimestampPart < timePart }
-        assertTrue { MaxTimestampPart >= timePart }
-        assertTrue { MinRandomPart <= randomPart }
-        assertTrue { MaxRandomPart >= randomPart }
-    }
-
-    @Test
-    fun test_nextULID_with_random_0() {
-        val random = MockRandom(0)
-        val ulid = ULID(random)
-
-        val result = ulid.nextULID()
-
-        assertEquals(0, random.nextLong())
-        assertEquals(26, result.length)
-        val (timePart, randomPart) = partsOf(result)
-        assertTrue { PastTimestampPart < timePart }
-        assertTrue { MaxTimestampPart >= timePart }
-        assertEquals(MinRandomPart, randomPart)
-    }
-
-    @Test
-    fun test_nextULID_with_random_minus_1() {
-        val random = MockRandom(-1)
-        val ulid = ULID(random)
-
-        val result = ulid.nextULID()
-
-        assertEquals(-1, random.nextLong())
-        assertEquals(26, result.length)
-        val (timePart, randomPart) = partsOf(result)
-        assertTrue { PastTimestampPart < timePart }
-        assertTrue { MaxTimestampPart >= timePart }
-        assertEquals(MaxRandomPart, randomPart)
-    }
-
-    @Test
-    fun test_nextULID_invalid_timestamp() {
-        assertFailsWith<IllegalArgumentException> {
-            ULID.nextULID(0x0001000000000000L)
-        }
-    }
-
-    @Test
-    fun test_nextValue() {
-        val result = ULID.nextValue().toString()
-
-        assertEquals(26, result.length)
-        val (timePart, randomPart) = partsOf(result)
-        assertTrue { PastTimestampPart < timePart }
-        assertTrue { MaxTimestampPart >= timePart }
-        assertTrue { MinRandomPart <= randomPart }
-        assertTrue { MaxRandomPart >= randomPart }
-    }
-
-    @Test
-    fun test_nextValue_with_random_0() {
-        val random = MockRandom(0)
-        val ulid = ULID(random)
-
-        val result = ulid.nextValue().toString()
-
-        assertEquals(0, random.nextLong())
-        assertEquals(26, result.length)
-        val (timePart, randomPart) = partsOf(result)
-        assertTrue { PastTimestampPart < timePart }
-        assertTrue { MaxTimestampPart >= timePart }
-        assertEquals(MinRandomPart, randomPart)
-    }
-
-    @Test
-    fun test_nextValue_with_random_minus_1() {
-        val random = MockRandom(-1)
-        val ulid = ULID(random)
-
-        val result = ulid.nextValue().toString()
-
-        assertEquals(-1, random.nextLong())
-        assertEquals(26, result.length)
-        val (timePart, randomPart) = partsOf(result)
-        assertTrue { PastTimestampPart < timePart }
-        assertTrue { MaxTimestampPart >= timePart }
-        assertEquals(MaxRandomPart, randomPart)
-    }
-
-    @Test
-    fun test_nextValue_invalid_timestamp() {
-        assertFailsWith<IllegalArgumentException> {
-            ULID.nextValue(0x0001000000000000L)
-        }
-    }
-
-    @Test
-    fun test_fromBytes() {
-        class Input(
-            val data: ByteArray,
-            val mostSignificantBits: Long,
-            val leastSignificantBits: Long,
-        )
+    fun test_toBytes() {
+        class Input(val mostSignificantBits: Long, val leastSignificantBits: Long, val expectedData: ByteArray)
 
         val inputs = listOf(
-            Input(ZeroBytes, 0L, 0L),
-            Input(FullBytes, AllBitsSet, AllBitsSet),
-            Input(PatternBytes, PatternMostSignificantBits, PatternLeastSignificantBits),
+            Input(0L, 0L, ZeroBytes),
+            Input(AllBitsSet, AllBitsSet, FullBytes),
+            Input(PatternMostSignificantBits, PatternLeastSignificantBits, PatternBytes),
         )
 
         for (input in inputs) {
             input.run {
-                val ulidValue = ULID.fromBytes(data)
-                assertEquals(ulidValue.mostSignificantBits, mostSignificantBits)
-                assertEquals(ulidValue.leastSignificantBits, leastSignificantBits)
+                val ulidValue = ULIDValue(mostSignificantBits, leastSignificantBits)
+                val bytes = ulidValue.toBytes()
+                assertContentEquals(expectedData, bytes)
             }
         }
     }
 
     @Test
-    fun test_fromBytes_fails() {
-        assertFailsWith<IllegalArgumentException> { ULID.fromBytes(ByteArray(15)) }
-        assertFailsWith<IllegalArgumentException> { ULID.fromBytes(ByteArray(17)) }
-    }
+    fun test_comparable() {
+        class Input(
+            val mostSignificantBits1: Long,
+            val leastSignificantBits1: Long,
+            val mostSignificantBits2: Long,
+            val leastSignificantBits2: Long,
+            val compare: Int,
+        )
 
-    private fun partsOf(ulid: String): Pair<String, String> = ulid.substring(0, 10) to ulid.substring(10)
+        val inputs = listOf(
+            Input(0L, 0L, 0L, 0L, 0),
+            Input(AllBitsSet, AllBitsSet, AllBitsSet, AllBitsSet, 0),
+            Input(
+                PatternMostSignificantBits, PatternLeastSignificantBits,
+                PatternMostSignificantBits, PatternLeastSignificantBits, 0
+            ),
+            Input(0L, 1L, 0L, 0L, 1),
+            Input(1 shl 16, 0L, 0L, 0L, 1),
+        )
+
+        for (input in inputs) {
+            input.run {
+                val value1 = ULIDValue(mostSignificantBits1, leastSignificantBits1)
+                val value2 = ULIDValue(mostSignificantBits2, leastSignificantBits2)
+
+                val equals12 = value1 == value2
+                val equals21 = value2 == value1
+                val compare12 = value1.compareTo(value2)
+                val compare21 = value2.compareTo(value1)
+                val hash1 = value1.hashCode()
+                val hash2 = value2.hashCode()
+
+                assertEquals(equals12, equals21)
+                assertEquals(compare12, compare21 * -1)
+                when (compare) {
+                    0 -> assertEquals(hash1, hash2)
+                    else -> {
+                        assertEquals(compare12, compare)
+                        assertFalse { equals12 }
+                    }
+                }
+            }
+        }
+    }
 }

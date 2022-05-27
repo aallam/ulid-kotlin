@@ -82,9 +82,7 @@ class TestCrockford {
         for (input in inputs) {
             input.run {
                 val buffer = CharArray(bufferSize) { '#' }
-                with(Crockford) {
-                    buffer.write(inputValue, length, offset)
-                }
+                buffer.write(inputValue, length, offset)
                 val result = buffer.concatToString()
                 assertEquals(expectedResult, result)
             }
@@ -162,9 +160,7 @@ class TestCrockford {
         for (input in inputs) {
             input.run {
                 val builder = StringBuilder()
-                with(Crockford) {
-                    builder.append(inputValue, length)
-                }
+                builder.append(inputValue, length)
                 val result = builder.toString()
                 assertEquals(expectedResult, result)
             }
