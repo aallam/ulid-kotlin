@@ -1,7 +1,3 @@
-import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
@@ -12,8 +8,26 @@ plugins {
 kotlin {
     explicitApi()
     jvm()
-    js { nodejs() }
-    native()
+    js {
+        browser()
+        nodejs()
+    }
+
+    // darwin
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    watchosArm64()
+    watchosX64()
+    watchosSimulatorArm64()
+    macosX64()
+    macosArm64()
+
+    linuxX64()
+    mingwX64()
 
     sourceSets {
         val commonMain by getting {
@@ -36,23 +50,6 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.test.js)
             }
-        }
-    }
-}
-
-fun KotlinMultiplatformExtension.native() {
-    val targets = mutableListOf<KotlinNativeTarget>().apply {
-        add(linuxX64())
-        add(macosX64())
-        add(macosArm64())
-        add(mingwX64())
-    }
-    sourceSets.apply {
-        val nativeMain by creating { dependsOn(getByName("commonMain")) }
-        val nativeTest by creating { dependsOn(getByName("commonTest")) }
-        targets.forEach { target ->
-            getByName("${target.name}Main").dependsOn(nativeMain)
-            getByName("${target.name}Test").dependsOn(nativeTest)
         }
     }
 }
