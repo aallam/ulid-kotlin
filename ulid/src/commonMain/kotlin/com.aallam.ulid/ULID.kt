@@ -3,6 +3,7 @@ package com.aallam.ulid
 import com.aallam.ulid.internal.ULIDFactory
 import com.aallam.ulid.internal.ULIDFactory.Companion.Default
 import com.aallam.ulid.internal.ULIDMonotonic
+import com.aallam.ulid.internal.ULIDMonotonic.Companion.DefaultMonotonic
 import com.aallam.ulid.internal.currentTimeMillis
 import kotlin.random.Random
 
@@ -78,6 +79,8 @@ public interface ULID : Comparable<ULID> {
         public fun nextULID(previousULID: ULID, timestamp: Long = currentTimeMillis()): ULID
 
         public fun nextULIDStrict(previousULID: ULID, timestamp: Long = currentTimeMillis()): ULID?
+
+        public companion object: Monotonic by DefaultMonotonic
 
     }
 

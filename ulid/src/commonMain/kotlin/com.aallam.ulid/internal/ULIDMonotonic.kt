@@ -20,6 +20,10 @@ internal class ULIDMonotonic(private val factory: ULID.Factory) : ULID.Monotonic
     }
 
     companion object {
+
+        /**
+         * Default implementation instance of [ULID.Monotonic].
+         */
         val DefaultMonotonic = ULIDMonotonic(ULID)
     }
 }
