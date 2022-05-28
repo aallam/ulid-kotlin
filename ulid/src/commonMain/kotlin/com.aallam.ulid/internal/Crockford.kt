@@ -13,16 +13,6 @@ internal fun CharArray.write(value: Long, count: Int, offset: Int) {
 /**
  * [Crockford's Base 32](https://www.crockford.com/base32.html).
  */
-internal fun StringBuilder.append(value: Long, count: Int) {
-    for (i in count - 1 downTo 0) {
-        val index = (value ushr (i * MaskBits) and Mask).toInt()
-        append(EncodingChars[index])
-    }
-}
-
-/**
- * [Crockford's Base 32](https://www.crockford.com/base32.html).
- */
 internal fun String.parseCrockford(): Long {
     require(length <= 12) { "input length must not exceed 12 but was $length!" }
     var result: Long = 0
