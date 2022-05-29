@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
+    id("org.jetbrains.kotlinx.kover")
     id("binary-compatibility-validator")
     id("com.diffplug.spotless")
 }
