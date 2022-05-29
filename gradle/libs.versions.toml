@@ -1,3 +1,7 @@
+[versions]
+kotlin = "1.6.21"
+benchmark = "0.4.2"
+
 [libraries]
 # Kotlin
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common" }
@@ -5,10 +9,13 @@ kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-an
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit" }
 kotlin-test-js = { module = "org.jetbrains.kotlin:kotlin-test-js" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.3.2" }
+kotlinx-benchmark = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "benchmark" }
 
 [plugins]
-kotlin-multiplaform = { id = "org.jetbrains.kotlin.multiplatform", version = "1.6.21" }
+kotlin-multiplaform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 kotlinx-binary-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.10.0" }
 kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.5.1" }
+kotlinx-benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "benchmark" }
 maven-publish = { id = "com.vanniktech.maven.publish", version = "0.19.0" }
 spotless = { id = "com.diffplug.gradle.spotless", version = "6.6.1" }

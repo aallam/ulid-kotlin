@@ -5,8 +5,10 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin.multiplaform) apply false
+    alias(libs.plugins.kotlin.allopen) apply false
     alias(libs.plugins.kotlinx.binary.validator) apply false
     alias(libs.plugins.kotlinx.kover) apply false
+    alias(libs.plugins.kotlinx.benchmark) apply false
     alias(libs.plugins.maven.publish) apply false
     alias(libs.plugins.spotless) apply false
 }
