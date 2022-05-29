@@ -201,6 +201,4 @@ class TestULIDFactory {
             assertFailsWith<IllegalArgumentException> { ULID.parseULID(input) }
         }
     }
-
-    private fun partsOf(ulid: String): Pair<String, String> = ulid.substring(0, 10) to ulid.substring(10)
 }

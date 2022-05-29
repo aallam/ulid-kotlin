@@ -7,16 +7,16 @@ import com.aallam.ulid.ULID
  */
 internal class ULIDMonotonic(private val factory: ULID.Factory) : ULID.Monotonic {
 
-    override fun nextULID(previousULID: ULID, timestamp: Long): ULID {
-        return when (previousULID.timestamp) {
-            timestamp -> previousULID.increment()
+    override fun nextULID(previous: ULID, timestamp: Long): ULID {
+        return when (previous.timestamp) {
+            timestamp -> previous.increment()
             else -> factory.nextULID(timestamp)
         }
     }
 
-    override fun nextULIDStrict(previousULID: ULID, timestamp: Long): ULID? {
-        val result = nextULID(previousULID, timestamp)
-        return if (result > previousULID) result else null
+    override fun nextULIDStrict(previous: ULID, timestamp: Long): ULID? {
+        val result = nextULID(previous, timestamp)
+        return if (result > previous) result else null
     }
 
     companion object {

@@ -76,11 +76,26 @@ public interface ULID : Comparable<ULID> {
      */
     public interface Monotonic {
 
-        public fun nextULID(previousULID: ULID, timestamp: Long = currentTimeMillis()): ULID
+        /**
+         * Get the next monotonic [ULID]. If an overflow happened while incrementing the random part of the given
+         * previous [ULID] value then the returned value will have a zero random part.
+         *
+         * @param previous the previous ULID value
+         * @param timestamp the timestamp of the next ULID value
+         */
+        public fun nextULID(previous: ULID, timestamp: Long = currentTimeMillis()): ULID
 
-        public fun nextULIDStrict(previousULID: ULID, timestamp: Long = currentTimeMillis()): ULID?
+        /**
+         * Returns the next monotonic [ULID] or `null` if an overflow happened while incrementing the random part of
+         * the given previous ULID value.
+         *
+         * @param previous the previous ULID value.
+         * @param timestamp the timestamp of the next ULID value.
+         * @return the next monotonic value or empty if an overflow happened.
+         */
+        public fun nextULIDStrict(previous: ULID, timestamp: Long = currentTimeMillis()): ULID?
 
-        public companion object: Monotonic by DefaultMonotonic
+        public companion object : Monotonic by DefaultMonotonic
 
     }
 

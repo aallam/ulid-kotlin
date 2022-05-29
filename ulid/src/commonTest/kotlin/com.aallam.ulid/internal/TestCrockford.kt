@@ -3,6 +3,7 @@ package com.aallam.ulid.internal
 import com.aallam.ulid.utils.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class TestCrockford {
 
@@ -169,6 +170,17 @@ class TestCrockford {
                 val result = string.parseCrockford()
                 assertEquals(expectedResult, result)
             }
+        }
+    }
+
+    @Test
+    fun test_parseCrockford_fail() {
+        assertFailsWith<IllegalArgumentException> {
+            "0000000000000".parseCrockford() // 13 chars
+        }
+
+        assertFailsWith<IllegalArgumentException> {
+            "{".parseCrockford() // illegal char (123)
         }
     }
 }

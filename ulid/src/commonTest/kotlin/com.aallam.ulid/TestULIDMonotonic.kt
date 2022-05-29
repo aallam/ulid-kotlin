@@ -1,6 +1,7 @@
 package com.aallam.ulid
 
 import com.aallam.ulid.internal.ULIDValue
+import com.aallam.ulid.utils.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -73,5 +74,19 @@ class TestULIDMonotonic {
 
         val nextULID2 = ULID.Monotonic.nextULIDStrict(previousValue)!!
         assertTrue { nextULID2.timestamp > 0 }
+    }
+
+    @Test
+    fun test_nextULID_factory() {
+        val monotonic = ULID.Monotonic(factory = ULID.Factory())
+        val previousValue = ULIDValue(0, 0)
+        val result = monotonic.nextULID(previousValue).toString()
+
+        assertEquals(26, result.length)
+        val (timePart, randomPart) = partsOf(result)
+        assertTrue { PastTimestampPart < timePart }
+        assertTrue { MaxTimestampPart >= timePart }
+        assertTrue { MinRandomPart <= randomPart }
+        assertTrue { MaxRandomPart >= randomPart }
     }
 }
