@@ -10,7 +10,7 @@ import kotlin.random.Random
  */
 internal class ULIDFactory(private val random: Random = Random) : ULID.Factory {
 
-    override fun nextULIDString(timestamp: Long): String {
+    override fun randomULID(timestamp: Long): String {
         requireTimestamp(timestamp)
         val buffer = CharArray(26)
         buffer.write(timestamp, 10, 0)

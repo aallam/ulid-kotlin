@@ -46,7 +46,7 @@ public interface ULID : Comparable<ULID> {
          *
          * @param timestamp timestamp epoch in milliseconds
          */
-        public fun nextULIDString(timestamp: Long = currentTimeMillis()): String
+        public fun randomULID(timestamp: Long = currentTimeMillis()): String
 
 
         /**

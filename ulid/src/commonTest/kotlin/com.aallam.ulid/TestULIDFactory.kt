@@ -9,8 +9,8 @@ import kotlin.test.assertTrue
 class TestULIDFactory {
 
     @Test
-    fun test_nextULIDString() {
-        val result = ULID.nextULIDString()
+    fun test_randomULID() {
+        val result = ULID.randomULID()
 
         assertEquals(26, result.length)
         val (timePart, randomPart) = partsOf(result)
@@ -21,11 +21,11 @@ class TestULIDFactory {
     }
 
     @Test
-    fun test_nextULIDString_with_random_0() {
+    fun test_randomULID_with_random_0() {
         val random = MockRandom(0)
         val factory = ULID.Factory(random)
 
-        val result = factory.nextULIDString()
+        val result = factory.randomULID()
 
         assertEquals(0, random.nextLong())
         assertEquals(26, result.length)
@@ -36,11 +36,11 @@ class TestULIDFactory {
     }
 
     @Test
-    fun test_nextULIDString_with_random_minus_1() {
+    fun test_randomULID_with_random_minus_1() {
         val random = MockRandom(-1)
         val factory = ULID.Factory(random)
 
-        val result = factory.nextULIDString()
+        val result = factory.randomULID()
 
         assertEquals(-1, random.nextLong())
         assertEquals(26, result.length)
@@ -51,9 +51,9 @@ class TestULIDFactory {
     }
 
     @Test
-    fun test_nextULIDString_invalid_timestamp() {
+    fun test_randomULID_invalid_timestamp() {
         assertFailsWith<IllegalArgumentException> {
-            ULID.nextULIDString(0x0001000000000000L)
+            ULID.randomULID(0x0001000000000000L)
         }
     }
 
