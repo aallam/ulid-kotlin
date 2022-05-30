@@ -31,20 +31,16 @@ kotlin {
 benchmark {
     configurations {
         named("main") {
-            iterationTime = 5
-            iterationTimeUnit = "sec"
-
+            iterations = 5
+            warmups = 5
         }
     }
     targets {
-        // This one matches compilation base name, e.g. 'jvm', 'jvmTest', etc
         register("jvm") {
             this as JvmBenchmarkTarget
-            jmhVersion = "1.21"
+            jmhVersion = "1.35"
         }
         register("js")
         register("macosX64")
-        register("linuxX64")
-        register("mingwX64")
     }
 }
