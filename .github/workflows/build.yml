@@ -62,7 +62,6 @@ jobs:
 
       - name: Build
         run: ./gradlew allTests
-        env:
 
   coverage:
     name: Coverage
