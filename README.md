@@ -2,6 +2,10 @@
 
 > Universally Unique Lexicographically Sortable Identifier
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.aallam.ulid/ulid?color=blue&label=Download)](https://search.maven.org/artifact/com.aallam.ulid/ulid)
+[![License](https://img.shields.io/github/license/Aallam/ulid?color=yellow)](LICENSE.md)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.6.21-blue.svg?logo=kotlin)](https://kotlinlang.org/docs/releases.html#release-details)
+
 Kotlin implementation of [ULID](https://github.com/ulid/spec#specification) with multiplatform support.
 
 ## Background
