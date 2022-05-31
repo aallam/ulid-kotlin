@@ -5,7 +5,7 @@ import kotlinx.benchmark.*
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(BenchmarkTimeUnit.SECONDS)
+@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 class ULIDAverage {
 
     @Benchmark
