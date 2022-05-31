@@ -60,7 +60,7 @@ jobs:
         with:
           gradle-version: wrapper
 
-      - name: Build
+      - name: Test
         run: ./gradlew :ulid:{jvmTest,jsTest,macosX64Test}
 
   coverage:
@@ -68,7 +68,28 @@ jobs:
     runs-on: macos-11
     needs: test
     steps:
-    - uses: actions/checkout@main
-    - uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Configure JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+
+      - name: Generate coverage report
+        run: ./gradlew koverXmlReport
+
+      - name: Codecov upload
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}          
+    
