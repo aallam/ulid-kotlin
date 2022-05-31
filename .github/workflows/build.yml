@@ -61,7 +61,7 @@ jobs:
           gradle-version: wrapper
 
       - name: Build
-        run: ./gradlew :ulid:allTests
+        run: ./gradlew :ulid:{jvmTest,jsTest,macosX64Test}
 
   coverage:
     name: Coverage
