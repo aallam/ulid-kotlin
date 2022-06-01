@@ -33,7 +33,7 @@ internal class ULIDFactory(private val random: Random = Random) : ULID.Factory {
         var mostSignificantBits: Long = 0
         var leastSignificantBits: Long = 0
         for (i in 0..7) mostSignificantBits = (mostSignificantBits shl 8) or (data[i].toLong() and 0xFF)
-        for (i in 8..15) leastSignificantBits = (leastSignificantBits shl 8) or (data[i].toLong() and 0xff)
+        for (i in 8..15) leastSignificantBits = (leastSignificantBits shl 8) or (data[i].toLong() and 0xFF)
         return ULIDValue(mostSignificantBits, leastSignificantBits)
     }
 

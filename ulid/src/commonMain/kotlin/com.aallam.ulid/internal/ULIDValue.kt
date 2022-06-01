@@ -21,7 +21,9 @@ internal data class ULIDValue(
     }
 
     override fun increment(): ULID {
-        if (leastSignificantBits != -0x1L) return ULIDValue(mostSignificantBits, leastSignificantBits + 1)
+        if (leastSignificantBits != -0x1L) { // 0xFFFF_FFFF_FFFF_FFFF
+            return ULIDValue(mostSignificantBits, leastSignificantBits + 1)
+        }
         return if ((mostSignificantBits and RandomMsbMask) != RandomMsbMask) {
             ULIDValue(mostSignificantBits + 1, 0)
         } else {
