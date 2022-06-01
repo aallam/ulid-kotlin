@@ -15,16 +15,14 @@ internal data class ULIDValue(
 
     override fun toBytes(): ByteArray {
         val bytes = ByteArray(16)
-        for (i in 0..7) bytes[i] = (mostSignificantBits shr ((7 - i) * 8) and 0xFFL).toByte()
-        for (i in 8..15) bytes[i] = (leastSignificantBits shr ((15 - i) * 8) and 0xFFL).toByte()
+        for (i in 0..7) bytes[i] = (mostSignificantBits shr ((7 - i) * 8) and Mask8Bits).toByte()
+        for (i in 8..15) bytes[i] = (leastSignificantBits shr ((15 - i) * 8) and Mask8Bits).toByte()
         return bytes
     }
 
     override fun increment(): ULID {
-        if (leastSignificantBits != -0x1L) { // 0xFFFF_FFFF_FFFF_FFFF
-            return ULIDValue(mostSignificantBits, leastSignificantBits + 1)
-        }
-        return if ((mostSignificantBits and RandomMsbMask) != RandomMsbMask) {
+        if (leastSignificantBits != -0x1L) return ULIDValue(mostSignificantBits, leastSignificantBits + 1)
+        return if ((mostSignificantBits and Mask16Bits) != Mask16Bits) {
             ULIDValue(mostSignificantBits + 1, 0)
         } else {
             ULIDValue(mostSignificantBits and TimestampMsbMask, 0)
@@ -42,7 +40,7 @@ internal data class ULIDValue(
     override fun toString(): String {
         val buffer = CharArray(26)
         buffer.write(timestamp, 10, 0)
-        var value = mostSignificantBits and 0xFFFFL shl 24
+        var value = mostSignificantBits and Mask16Bits shl 24
         val interim = leastSignificantBits ushr 40
         value = value or interim
         buffer.write(value, 8, 10)

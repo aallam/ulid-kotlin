@@ -23,8 +23,8 @@ internal class ULIDFactory(private val random: Random = Random) : ULID.Factory {
         requireTimestamp(timestamp)
         var mostSignificantBits = random.nextLong()
         val leastSignificantBits = random.nextLong()
-        mostSignificantBits = mostSignificantBits and 0xFFFFL
-        mostSignificantBits = mostSignificantBits or (timestamp shl 16)
+        mostSignificantBits = mostSignificantBits and Mask16Bits // random 16 bits
+        mostSignificantBits = mostSignificantBits or (timestamp shl 16) // timestamp (32+16) + 16 random
         return ULIDValue(mostSignificantBits, leastSignificantBits)
     }
 
@@ -32,8 +32,8 @@ internal class ULIDFactory(private val random: Random = Random) : ULID.Factory {
         require(data.size == 16) { "data must be 16 bytes in length" }
         var mostSignificantBits: Long = 0
         var leastSignificantBits: Long = 0
-        for (i in 0..7) mostSignificantBits = (mostSignificantBits shl 8) or (data[i].toLong() and 0xFF)
-        for (i in 8..15) leastSignificantBits = (leastSignificantBits shl 8) or (data[i].toLong() and 0xFF)
+        for (i in 0..7) mostSignificantBits = (mostSignificantBits shl 8) or (data[i].toLong() and Mask8Bits)
+        for (i in 8..15) leastSignificantBits = (leastSignificantBits shl 8) or (data[i].toLong() and Mask8Bits)
         return ULIDValue(mostSignificantBits, leastSignificantBits)
     }
 
@@ -42,7 +42,7 @@ internal class ULIDFactory(private val random: Random = Random) : ULID.Factory {
 
         val timeString = ulidString.substring(0, 10)
         val time = timeString.parseCrockford()
-        require(time and TimestampOverflowMask == 0L) { "ulid string must not exceed '7ZZZZZZZZZZZZZZZZZZZZZZZZZ'!" }
+        require((time and TimestampOverflowMask) == 0L) { "ulid string must not exceed '7ZZZZZZZZZZZZZZZZZZZZZZZZZ'!" }
 
         val part1String = ulidString.substring(10, 18)
         val part2String = ulidString.substring(18)

@@ -5,7 +5,9 @@ package com.aallam.ulid.internal
  */
 internal fun CharArray.write(value: Long, count: Int, offset: Int) {
     for (i in 0 until count) {
-        val index = (value ushr ((count - i - 1) * MaskBits) and Mask).toInt()
+        val bitCount = (count - i - 1) * Mask5BitsCount
+        val shifted = value ushr bitCount
+        val index = (shifted and Mask5Bits).toInt()
         set(offset + i, EncodingChars[index])
     }
 }
@@ -23,7 +25,9 @@ internal fun String.parseCrockford(): Long {
             value = DecodingChars[current.code]
         }
         require(value >= 0) { "Illegal character '$current'!" }
-        result = result or (value.toLong() shl (length - 1 - i) * MaskBits)
+        val bitCount = (length - 1 - i) * Mask5BitsCount
+        val shifted = value.toLong() shl bitCount
+        result = result or shifted
     }
     return result
 }
