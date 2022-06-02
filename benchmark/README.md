@@ -31,10 +31,11 @@ ULIDThroughput.benchmark_randomUUID         thrpt    5  17962651.946 ± 485702.1
 ### Native (MacOS)
 ````
 Benchmark                                    Mode  Cnt        Score       Error    Units
-ULIDAverage.benchmark_nextULID_toString      avgt    5      676.207 ±     5.193    ns/op
-ULIDAverage.benchmark_randomULID             avgt    5      644.570 ±     3.677    ns/op
-ULIDAverage.benchmark_randomUUID             avgt    5      449.208 ±     4.799    ns/op
-ULIDThroughput.benchmark_nextULID_toString  thrpt    5  1494217.244 ± 26882.297  ops/sec
-ULIDThroughput.benchmark_randomULID         thrpt    5  1521867.091 ± 18060.507  ops/sec
-ULIDThroughput.benchmark_randomUUID         thrpt    5  2218858.340 ± 43712.400  ops/sec
+ULIDAverage.benchmark_nextULID_toString      avgt    5      700.184 ±      6.235    ns/op
+ULIDAverage.benchmark_randomULID             avgt    5      674.403 ±     13.308    ns/op
+ULIDAverage.benchmark_randomUUID             avgt    5     1077.795 ±    160.782    ns/op
+ULIDThroughput.benchmark_nextULID_toString  thrpt    5  1257132.750 ± 142648.484  ops/sec
+ULIDThroughput.benchmark_randomULID         thrpt    5  1543210.766 ±  21209.563  ops/sec
+ULIDThroughput.benchmark_randomUUID         thrpt    5  1156071.515 ± 129366.446  ops/sec
+
 ````
