@@ -18,4 +18,4 @@ kotlinx-binary-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-va
 kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.5.1" }
 kotlinx-benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "benchmark" }
 maven-publish = { id = "com.vanniktech.maven.publish", version = "0.20.0" }
-spotless = { id = "com.diffplug.gradle.spotless", version = "6.7.1" }
+spotless = { id = "com.diffplug.gradle.spotless", version = "6.7.2" }
