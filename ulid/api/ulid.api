@@ -1,0 +1,48 @@
+public abstract interface class ulid/ULID : java/lang/Comparable {
+	public static final field Companion Lulid/ULID$Companion;
+	public abstract fun getLeastSignificantBits ()J
+	public abstract fun getMostSignificantBits ()J
+	public abstract fun getTimestamp ()J
+	public abstract fun increment ()Lulid/ULID;
+	public abstract fun toBytes ()[B
+}
+
+public final class ulid/ULID$Companion : ulid/ULID$Factory {
+	public final fun Factory (Lkotlin/random/Random;)Lulid/ULID$Factory;
+	public static synthetic fun Factory$default (Lulid/ULID$Companion;Lkotlin/random/Random;ILjava/lang/Object;)Lulid/ULID$Factory;
+	public final fun Monotonic (Lulid/ULID$Factory;)Lulid/ULID$Monotonic;
+	public static synthetic fun Monotonic$default (Lulid/ULID$Companion;Lulid/ULID$Factory;ILjava/lang/Object;)Lulid/ULID$Monotonic;
+	public fun fromBytes ([B)Lulid/ULID;
+	public fun nextULID (J)Lulid/ULID;
+	public fun parseULID (Ljava/lang/String;)Lulid/ULID;
+	public fun randomULID (J)Ljava/lang/String;
+}
+
+public abstract interface class ulid/ULID$Factory {
+	public abstract fun fromBytes ([B)Lulid/ULID;
+	public abstract fun nextULID (J)Lulid/ULID;
+	public abstract fun parseULID (Ljava/lang/String;)Lulid/ULID;
+	public abstract fun randomULID (J)Ljava/lang/String;
+}
+
+public final class ulid/ULID$Factory$DefaultImpls {
+	public static synthetic fun nextULID$default (Lulid/ULID$Factory;JILjava/lang/Object;)Lulid/ULID;
+	public static synthetic fun randomULID$default (Lulid/ULID$Factory;JILjava/lang/Object;)Ljava/lang/String;
+}
+
+public abstract interface class ulid/ULID$Monotonic {
+	public static final field Companion Lulid/ULID$Monotonic$Companion;
+	public abstract fun nextULID (Lulid/ULID;J)Lulid/ULID;
+	public abstract fun nextULIDStrict (Lulid/ULID;J)Lulid/ULID;
+}
+
+public final class ulid/ULID$Monotonic$Companion : ulid/ULID$Monotonic {
+	public fun nextULID (Lulid/ULID;J)Lulid/ULID;
+	public fun nextULIDStrict (Lulid/ULID;J)Lulid/ULID;
+}
+
+public final class ulid/ULID$Monotonic$DefaultImpls {
+	public static synthetic fun nextULID$default (Lulid/ULID$Monotonic;Lulid/ULID;JILjava/lang/Object;)Lulid/ULID;
+	public static synthetic fun nextULIDStrict$default (Lulid/ULID$Monotonic;Lulid/ULID;JILjava/lang/Object;)Lulid/ULID;
+}
+
