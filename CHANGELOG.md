@@ -5,7 +5,8 @@
 * Enable compatibility with non-hierarchical projects
 
 ### Changed
-* Library package to `ulid`
+* Package to `ulid`
+* Artifact ID to `ulid-kotlin`
 * Update Kotlin to `1.7.0`
 
 # 0.1.0

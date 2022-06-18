@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.target.HostManager
+
 plugins {
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
@@ -10,23 +12,34 @@ kotlin {
     explicitApi()
     jvm()
     js {
+        compilations.all {
+            kotlinOptions {
+                moduleKind = "umd"
+                sourceMap = true
+                metaInfo = true
+            }
+        }
         browser()
         nodejs()
     }
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    tvosX64()
-    tvosArm64()
-    tvosSimulatorArm64()
-    watchosArm64()
-    watchosX64()
-    watchosSimulatorArm64()
-    macosX64()
-    macosArm64()
-    linuxX64()
-    mingwX64()
+    if (HostManager.hostIsMac) {
+        macosX64()
+        macosArm64()
+        iosX64()
+        iosArm64()
+        iosSimulatorArm64()
+    }
+
+    if (HostManager.hostIsMingw || HostManager.hostIsMac) {
+        mingwX64 {
+            binaries.findTest(DEBUG)?.linkerOpts = mutableListOf("-Wl,--subsystem,windows")
+        }
+    }
+
+    if (HostManager.hostIsLinux || HostManager.hostIsMac) {
+        linuxX64()
+    }
 
     sourceSets {
         val commonMain by getting {

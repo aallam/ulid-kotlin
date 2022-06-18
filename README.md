@@ -44,25 +44,13 @@ Add a dependency to the dependencies block:
 
 ```groovy
 dependencies {
-    implementation "com.aallam.ulid:ulid:$version"
+    implementation "com.aallam.ulid:ulid-kotlin:$version"
 }
 ```
 
 ### Multiplatform
 
-In multiplatform projects, add a dependency to the `commonMain` source set dependencies:
-
-```groovy
-kotlin {
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation "com.aallam.ulid:ulid:$version"
-            }
-        }
-    }
-}
-```
+In multiplatform projects, add a dependency to the `commonMain` source set dependencies.
 
 ## Usage
 
