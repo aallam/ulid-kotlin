@@ -38,8 +38,8 @@ jobs:
       - name: Run lint
         run: ./gradlew spotlessCheck
 
-  test:
-    name: Test
+  test-jvm:
+    name: Test (JVM)
     runs-on: macos-11
     needs: lint
     steps:
@@ -61,12 +61,62 @@ jobs:
           gradle-version: wrapper
 
       - name: Test
-        run: ./gradlew :ulid:{jvmTest,jsTest,macosX64Test}
+        run: ./gradlew :ulid:jvmTest
+
+  test-js:
+    name: Test (JS)
+    runs-on: macos-11
+    needs: lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Configure JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+
+      - name: Test
+        run: ./gradlew :ulid:{jsIRTest,jsLegacyTest}
+
+  test-native:
+    name: Test (Native)
+    runs-on: macos-11
+    needs: lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Configure JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+
+      - name: Test
+        run: ./gradlew :ulid:macosX64Test
 
   coverage:
     name: Coverage
     runs-on: macos-11
-    needs: test
+    needs: [test-jvm, test-js, test-native]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
