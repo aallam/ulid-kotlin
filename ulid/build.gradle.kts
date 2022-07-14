@@ -11,7 +11,7 @@ plugins {
 kotlin {
     explicitApi()
     jvm()
-    js {
+    js(BOTH) {
         compilations.all {
             kotlinOptions {
                 moduleKind = "umd"
