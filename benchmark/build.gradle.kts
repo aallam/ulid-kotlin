@@ -15,7 +15,9 @@ configure<AllOpenExtension> {
 
 kotlin {
     jvm()
-    js { nodejs() }
+    js(IR) {
+        nodejs()
+    }
     macosX64()
 
     sourceSets {

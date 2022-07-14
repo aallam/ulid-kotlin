@@ -11,16 +11,18 @@ plugins {
 kotlin {
     explicitApi()
     jvm()
-    js(BOTH) {
+    js {
         compilations.all {
             kotlinOptions {
                 moduleKind = "umd"
                 sourceMap = true
                 metaInfo = true
+                main = "noCall"
+                sourceMapEmbedSources = "always"
             }
         }
-        browser()
         nodejs()
+        browser()
     }
 
     if (HostManager.hostIsMac) {
