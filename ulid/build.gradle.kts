@@ -11,15 +11,14 @@ plugins {
 kotlin {
     explicitApi()
     jvm()
-    js(BOTH) {
+    js {
         compilations.all {
             kotlinOptions {
-                moduleKind = "umd"
                 sourceMap = true
+                moduleKind = "umd"
                 metaInfo = true
             }
         }
-        browser()
         nodejs()
     }
 
