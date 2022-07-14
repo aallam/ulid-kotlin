@@ -14,12 +14,15 @@ kotlin {
     js {
         compilations.all {
             kotlinOptions {
-                sourceMap = true
                 moduleKind = "umd"
+                sourceMap = true
                 metaInfo = true
+                main = "noCall"
+                sourceMapEmbedSources = "always"
             }
         }
         nodejs()
+        browser()
     }
 
     if (HostManager.hostIsMac) {
