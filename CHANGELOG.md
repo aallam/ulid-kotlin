@@ -1,3 +1,12 @@
+# 1.1.0
+> Published 14 Jul 2022
+
+### Added
+- Kotlin/JS: support `IR` and `Legacy` compilers
+
+### Changed
+- Update Kotlin to `1.7.10`
+
 # 1.0.0
 > Published 10 Jun 2022
 
