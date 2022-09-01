@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.7.10"
-benchmark = "0.4.4"
+benchmark = "0.4.5"
 
 [libraries]
 # Kotlin
