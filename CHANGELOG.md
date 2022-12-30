@@ -7,6 +7,7 @@
 ### Changed
 - Update Kotlin to `1.7.10`
 
+
 # 1.0.0
 > Published 10 Jun 2022
 
@@ -17,6 +18,7 @@
 * Package to `ulid`
 * Artifact ID to `ulid-kotlin`
 * Update Kotlin to `1.7.0`
+
 
 # 0.1.0
 > Published 31 May 2022
