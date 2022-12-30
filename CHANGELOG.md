@@ -1,3 +1,16 @@
+# 1.2.0
+> Published 30 Dec 2022
+
+### Added
+- Kotlin/Native: add `ios`, `watchos` and `tvos` targets
+
+### Changed
+- Update Kotlin to `1.8.0`
+
+### Removed
+- Kotlin/JS: `Legacy` compiler
+
+
 # 1.1.0
 > Published 14 Jul 2022
 
