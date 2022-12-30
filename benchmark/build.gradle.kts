@@ -38,10 +38,7 @@ benchmark {
         }
     }
     targets {
-        register("jvm") {
-            this as JvmBenchmarkTarget
-            jmhVersion = "1.35"
-        }
+        register("jvm")
         register("js")
         register("macosX64")
     }

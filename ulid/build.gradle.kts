@@ -28,9 +28,9 @@ kotlin {
     if (HostManager.hostIsMac) {
         macosX64()
         macosArm64()
-        iosX64()
-        iosArm64()
-        iosSimulatorArm64()
+        ios()
+        tvos()
+        watchos()
     }
 
     if (HostManager.hostIsMingw || HostManager.hostIsMac) {

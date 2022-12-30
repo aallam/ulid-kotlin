@@ -14,7 +14,7 @@ const val MaxRandomPart = "ZZZZZZZZZZZZZZZZ"
 const val MinRandomPart = "0000000000000000"
 
 const val PatternMostSignificantBits = 0x0011_2233_4455_6677L
-const val PatternLeastSignificantBits = -0x7766_5544_3322_1101L
+const val PatternLeastSignificantBits = -0x7766_5544_3322_1101L //0x8899_AABB_CCDD_EEFF
 
 val ZeroBytes = ByteArray(16)
 val FullBytes = listOf(
