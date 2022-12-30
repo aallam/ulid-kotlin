@@ -86,7 +86,7 @@ jobs:
           gradle-version: wrapper
 
       - name: Test
-        run: ./gradlew :ulid:{jsIRTest,jsLegacyTest}
+        run: ./gradlew :ulid:jsTest
 
   test-native:
     name: Test (Native)
