@@ -4,7 +4,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.aallam.ulid/ulid-kotlin?color=blue&label=Download)](https://search.maven.org/artifact/com.aallam.ulid/ulid-kotlin)
 [![License](https://img.shields.io/github/license/Aallam/ulid-kotlin?color=yellow)](LICENSE.md)
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.0-blue.svg?logo=kotlin)](https://kotlinlang.org/docs/releases.html#release-details)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.8.0-blue.svg?logo=kotlin)](https://kotlinlang.org/docs/releases.html#release-details)
 [![codecov](https://codecov.io/gh/Aallam/ulid-kotlin/branch/main/graph/badge.svg?token=E3KWyGWD9n)](https://codecov.io/gh/Aallam/ulid-kotlin)
 
 Kotlin implementation of [ULID](https://github.com/ulid/spec#specification) with multiplatform support.
