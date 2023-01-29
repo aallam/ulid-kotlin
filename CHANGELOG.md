@@ -1,3 +1,9 @@
+# 1.2.1
+> Published 29 Jan 2023
+
+### Added
+- Darwin simulator and x86 targets
+
 # 1.2.0
 > Published 30 Dec 2022
 
