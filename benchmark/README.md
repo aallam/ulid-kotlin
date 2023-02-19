@@ -4,38 +4,37 @@
 ./gradlew benchmark
 ```
 
-On 2,2 GHz Intel Core i7, macOS 12.4 and Java 17.0.3 (Temurin):
+On 2,2 GHz Intel Core i7, macOS 13.1 and Java 17.0.6 (Temurin):
 
 ### JVM
 ````
-Benchmark                                    Mode  Cnt         Score         Error  Units
-ULIDAverage.benchmark_nextULID_toString      avgt    5        73.037 ±       0.408  ns/op
-ULIDAverage.benchmark_randomULID             avgt    5        73.371 ±       0.204  ns/op
-ULIDAverage.benchmark_randomUUID             avgt    5       356.412 ±      21.441  ns/op
-ULIDThroughput.benchmark_nextULID_toString  thrpt    5  13185368.442 ± 2923436.139  ops/s
-ULIDThroughput.benchmark_randomULID         thrpt    5  13639833.380 ±  329058.644  ops/s
-ULIDThroughput.benchmark_randomUUID         thrpt    5   2861013.705 ±   49243.224  ops/s
+Benchmark                                    Mode  Cnt         Score        Error  Units
+ULIDAverage.benchmark_nextULID_toString      avgt    5        77.436 ±      2.000  ns/op
+ULIDAverage.benchmark_randomULID             avgt    5        78.005 ±      4.683  ns/op
+ULIDAverage.benchmark_randomUUID             avgt    5       355.228 ±     32.852  ns/op
+ULIDThroughput.benchmark_nextULID_toString  thrpt    5  13126798.435 ±  87624.877  ops/s
+ULIDThroughput.benchmark_randomULID         thrpt    5  12996685.137 ± 505180.013  ops/s
+ULIDThroughput.benchmark_randomUUID         thrpt    5   2849169.607 ±  63576.937  ops/s
 ````
 
 ### JS
 ````
-Benchmark                                    Mode  Cnt         Score         Error    Units
-ULIDAverage.benchmark_nextULID_toString      avgt    5       864.345 ±      5.740    ns/op
-ULIDAverage.benchmark_randomULID             avgt    5       805.020 ±      5.165    ns/op
-ULIDAverage.benchmark_randomUUID             avgt    5        55.493 ±      0.798    ns/op
-ULIDThroughput.benchmark_nextULID_toString  thrpt    5   1166417.593 ±   4791.949  ops/sec
-ULIDThroughput.benchmark_randomULID         thrpt    5   1236587.846 ±  12895.702  ops/sec
-ULIDThroughput.benchmark_randomUUID         thrpt    5  17962651.946 ± 485702.176  ops/sec
+Benchmark                                    Mode  Cnt         Score        Error    Units
+ULIDAverage.benchmark_nextULID_toString      avgt    5      3413.039 ±    134.168    ns/op
+ULIDAverage.benchmark_randomULID             avgt    5      3153.881 ±      9.269    ns/op
+ULIDAverage.benchmark_randomUUID             avgt    5        55.647 ±      0.501    ns/op
+ULIDThroughput.benchmark_nextULID_toString  thrpt    5    295730.038 ±  24753.945  ops/sec
+ULIDThroughput.benchmark_randomULID         thrpt    5    319544.621 ±   2000.374  ops/sec
+ULIDThroughput.benchmark_randomUUID         thrpt    5  17505839.286 ± 346412.077  ops/sec
 ````
 
 ### Native (MacOS)
 ````
 Benchmark                                    Mode  Cnt        Score       Error    Units
-ULIDAverage.benchmark_nextULID_toString      avgt    5      700.184 ±      6.235    ns/op
-ULIDAverage.benchmark_randomULID             avgt    5      674.403 ±     13.308    ns/op
-ULIDAverage.benchmark_randomUUID             avgt    5     1077.795 ±    160.782    ns/op
-ULIDThroughput.benchmark_nextULID_toString  thrpt    5  1257132.750 ± 142648.484  ops/sec
-ULIDThroughput.benchmark_randomULID         thrpt    5  1543210.766 ±  21209.563  ops/sec
-ULIDThroughput.benchmark_randomUUID         thrpt    5  1156071.515 ± 129366.446  ops/sec
-
+ULIDAverage.benchmark_nextULID_toString      avgt    5      712.336 ±     62.898    ns/op
+ULIDAverage.benchmark_randomULID             avgt    5      610.932 ±     43.855    ns/op
+ULIDAverage.benchmark_randomUUID             avgt    5     1165.665 ±    200.091    ns/op
+ULIDThroughput.benchmark_nextULID_toString  thrpt    5  1652419.335 ±  46228.572  ops/sec
+ULIDThroughput.benchmark_randomULID         thrpt    5  1715782.581 ± 138568.223  ops/sec
+ULIDThroughput.benchmark_randomUUID         thrpt    5   884488.773 ±  95637.845  ops/sec
 ````
