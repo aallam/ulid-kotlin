@@ -6,6 +6,7 @@
 [![License](https://img.shields.io/github/license/Aallam/ulid-kotlin?color=yellow)](LICENSE.md)
 [![Kotlin](https://img.shields.io/badge/kotlin-1.8.0-blue.svg?logo=kotlin)](https://kotlinlang.org/docs/releases.html#release-details)
 [![codecov](https://codecov.io/gh/Aallam/ulid-kotlin/branch/main/graph/badge.svg?token=E3KWyGWD9n)](https://codecov.io/gh/Aallam/ulid-kotlin)
+[![Documentation](https://img.shields.io/badge/docs-ulid--kotlin-a97bff)](https://mouaad.aallam.com/ulid-kotlin/)
 
 Kotlin implementation of [ULID](https://github.com/ulid/spec#specification) with multiplatform support.
 

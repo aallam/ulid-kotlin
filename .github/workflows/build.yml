@@ -144,6 +144,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}          
 
   publish-docs:
+    name: Publish Docs
     runs-on: ubuntu-latest
     needs: [ test-jvm, test-js, test-native ]
     if: github.repository == 'aallam/ulid-kotlin' && github.ref == 'refs/heads/main'
