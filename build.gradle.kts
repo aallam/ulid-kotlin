@@ -11,13 +11,14 @@ plugins {
     alias(libs.plugins.kotlinx.benchmark) apply false
     alias(libs.plugins.maven.publish) apply false
     alias(libs.plugins.spotless) apply false
+    alias(libs.plugins.dokka) apply false
 }
 
 subprojects {
     apply(plugin = "com.diffplug.spotless")
     configure<SpotlessExtension> {
         kotlin {
-            target("**/*.kt")
+            ktlint()
             trimTrailingWhitespace()
             endWithNewline()
         }

@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover")
     id("binary-compatibility-validator")
     id("com.diffplug.spotless")
+    id("org.jetbrains.dokka")
 }
 
 kotlin {
