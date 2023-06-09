@@ -1,4 +1,4 @@
-rootProject.name = "ULID"
+rootProject.name = "ulid-kotlin"
 include(":ulid")
 include(":benchmark")
 
