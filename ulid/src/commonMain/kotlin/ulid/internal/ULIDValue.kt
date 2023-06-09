@@ -8,7 +8,7 @@ import ulid.ULID
 internal data class ULIDValue(
     override val mostSignificantBits: Long,
     override val leastSignificantBits: Long,
-) : ULID {
+) : ULID, Serializable {
 
     override val timestamp: Long
         get() = mostSignificantBits ushr 16
@@ -46,5 +46,9 @@ internal data class ULIDValue(
         buffer.write(value, 8, 10)
         buffer.write(leastSignificantBits, 8, 18)
         return buffer.concatToString()
+    }
+
+    companion object {
+        private const val serialVersionUID = 1L
     }
 }
