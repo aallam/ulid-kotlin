@@ -1,3 +1,12 @@
+# 1.3.0
+> Published 26 Jul 2023
+
+### Added
+- jvm: `ULID` implements `java.io.Serializable` (#34)
+
+### Changed
+- Update Kotlin to `1.9.0`
+
 # 1.2.1
 > Published 29 Jan 2023
 
