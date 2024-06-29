@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
@@ -10,25 +11,27 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
     explicitApi()
     jvm()
     js {
-        compilations.all {
-            kotlinOptions {
-                moduleKind = "umd"
-                sourceMap = true
-                metaInfo = true
-                main = "noCall"
-                sourceMapEmbedSources = "always"
-            }
-        }
         nodejs()
         browser()
     }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        nodejs()
+        browser()
+    }
+
+    // Waiting for: https://github.com/Kotlin/kotlinx-datetime/pull/366
+    //@OptIn(ExperimentalWasmDsl::class)
+    //wasmWasi {
+    //    nodejs()
+    //}
 
     if (HostManager.hostIsMac) {
         iosX64()
@@ -41,7 +44,6 @@ kotlin {
         tvosSimulatorArm64()
         watchosArm32()
         watchosArm64()
-        watchosX86()
         watchosX64()
         watchosSimulatorArm64()
     }
