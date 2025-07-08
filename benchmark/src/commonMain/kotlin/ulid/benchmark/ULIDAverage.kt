@@ -1,7 +1,7 @@
 package ulid.benchmark
 
-import ulid.ULID
 import kotlinx.benchmark.*
+import ulid.ULID
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)

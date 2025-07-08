@@ -1,5 +1,7 @@
 package ulid
 
+import kotlinx.serialization.Serializable
+import ulid.internal.ULIDAsStringSerializer
 import ulid.internal.ULIDFactory
 import ulid.internal.ULIDFactory.Companion.Default
 import ulid.internal.ULIDMonotonic
@@ -12,6 +14,7 @@ import kotlin.random.Random
  *
  * [Specification](https://github.com/ulid/spec#specification)
  */
+@Serializable(with = ULIDAsStringSerializer::class)
 public interface ULID : Comparable<ULID> {
 
     /**
