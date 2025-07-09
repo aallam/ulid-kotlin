@@ -8,7 +8,7 @@ import ulid.ULID
 internal data class ULIDValue(
     override val mostSignificantBits: Long,
     override val leastSignificantBits: Long,
-) : ULID {
+) : ULID, Serializable {
 
     override val timestamp: Long
         get() = mostSignificantBits ushr 16
