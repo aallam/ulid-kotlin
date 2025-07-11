@@ -61,13 +61,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlin.datetime)
-                implementation(libs.bundles.kotlinx.serialization)
+                implementation(libs.kotlinx.serialization.core)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test.common)
                 implementation(libs.kotlin.test.annotations.common)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
         val jvmTest by getting {

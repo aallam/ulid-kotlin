@@ -14,9 +14,6 @@ kotlinx-benchmark = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime"
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
-[bundles]
-kotlinx-serialization = ["kotlinx-serialization-core", "kotlinx-serialization-json"]
-
 [plugins]
 kotlin-multiplaform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
