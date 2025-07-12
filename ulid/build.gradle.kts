@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
@@ -11,9 +10,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
     explicitApi()
     jvm()
@@ -42,7 +40,6 @@ kotlin {
         tvosSimulatorArm64()
         watchosArm32()
         watchosArm64()
-        watchosX86()
         watchosX64()
         watchosSimulatorArm64()
     }
