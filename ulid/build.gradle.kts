@@ -8,6 +8,7 @@ plugins {
     id("binary-compatibility-validator")
     id("com.diffplug.spotless")
     id("org.jetbrains.dokka")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -60,12 +61,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlin.datetime)
+                implementation(libs.kotlinx.serialization.core)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test.common)
                 implementation(libs.kotlin.test.annotations.common)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
         val jvmTest by getting {

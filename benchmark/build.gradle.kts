@@ -1,4 +1,3 @@
-import kotlinx.benchmark.gradle.JvmBenchmarkTarget
 import kotlinx.benchmark.gradle.benchmark
 import org.jetbrains.kotlin.allopen.gradle.AllOpenExtension
 
@@ -7,6 +6,7 @@ plugins {
     kotlin("plugin.allopen")
     id("org.jetbrains.kotlinx.benchmark")
     id("com.diffplug.spotless")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 configure<AllOpenExtension> {
@@ -25,6 +25,7 @@ kotlin {
             dependencies {
                 implementation(project(":ulid"))
                 implementation(libs.kotlinx.benchmark)
+                implementation(libs.kotlinx.serialization.core)
             }
         }
     }
