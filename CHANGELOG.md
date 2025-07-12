@@ -4,6 +4,9 @@
 ### Added
 - jvm: `ULID` implements `kotlinx.serialization.Serializable` (#39) (thanks @Lazalatin)
 
+### Changed
+- Update Kotlin to `2.0.20`
+
 # 1.3.0
 > Published 26 Jul 2023
 

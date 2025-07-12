@@ -11,7 +11,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
 
@@ -42,7 +41,6 @@ kotlin {
         tvosSimulatorArm64()
         watchosArm32()
         watchosArm64()
-        watchosX86()
         watchosX64()
         watchosSimulatorArm64()
     }
