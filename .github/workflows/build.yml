@@ -40,7 +40,7 @@ jobs:
 
   test-jvm:
     name: Test (JVM)
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     needs: lint
     steps:
       - name: Checkout
@@ -65,7 +65,7 @@ jobs:
 
   test-js:
     name: Test (JS)
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     needs: lint
     steps:
       - name: Checkout
@@ -90,7 +90,7 @@ jobs:
 
   test-native:
     name: Test (Native)
-    runs-on: macos-11
+    runs-on: macos-latest
     needs: lint
     steps:
       - name: Checkout
@@ -115,7 +115,7 @@ jobs:
 
   coverage:
     name: Coverage
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     needs: [test-jvm, test-js, test-native]
     steps:
       - name: Checkout
@@ -141,7 +141,7 @@ jobs:
       - name: Codecov upload
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}          
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   publish-docs:
     name: Publish Docs
