@@ -1,5 +1,6 @@
 import kotlinx.benchmark.gradle.benchmark
 import org.jetbrains.kotlin.allopen.gradle.AllOpenExtension
+import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
     kotlin("multiplatform")
@@ -18,7 +19,9 @@ kotlin {
     js(IR) {
         nodejs()
     }
-    macosX64()
+    if (HostManager.hostIsMac) {
+        macosArm64()
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -41,6 +44,8 @@ benchmark {
     targets {
         register("jvm")
         register("js")
-        register("macosX64")
+        if (HostManager.hostIsMac) {
+            register("macosArm64")
+        }
     }
 }
