@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JsMainFunctionExecutionMode
 import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 import org.jetbrains.kotlin.gradle.dsl.JsSourceMapEmbedMode
@@ -27,6 +28,16 @@ kotlin {
         }
         nodejs()
         browser()
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        outputModuleName = "ulid"
+        browser {
+            commonWebpackConfig {
+                outputFileName = "ulid.js"
+            }
+        }
+        nodejs()
     }
 
     if (HostManager.hostIsMac) {
@@ -63,7 +74,7 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(libs.kotlin.test.common)
+                implementation(libs.kotlin.test)
                 implementation(libs.kotlin.test.annotations.common)
                 implementation(libs.kotlinx.serialization.json)
             }
