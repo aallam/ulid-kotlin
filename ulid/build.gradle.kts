@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JsMainFunctionExecutionMode
+import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
+import org.jetbrains.kotlin.gradle.dsl.JsSourceMapEmbedMode
 import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
@@ -15,15 +18,12 @@ kotlin {
 
     explicitApi()
     jvm()
-    js {
-        compilations.all {
-            kotlinOptions {
-                moduleKind = "umd"
-                sourceMap = true
-                metaInfo = true
-                main = "noCall"
-                sourceMapEmbedSources = "always"
-            }
+    js(IR) {
+        compilerOptions {
+            moduleKind = JsModuleKind.MODULE_UMD
+            sourceMap = true
+            sourceMapEmbedSources = JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_ALWAYS
+            main = JsMainFunctionExecutionMode.NO_CALL
         }
         nodejs()
         browser()
