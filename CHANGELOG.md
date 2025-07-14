@@ -1,3 +1,11 @@
+# 1.5.0
+
+### Added
+- wasmJS target
+
+### Changed
+- Update Kotlin to `2.2.0`
+
 # 1.4.0
 > Published 12 Jul 2025
 
