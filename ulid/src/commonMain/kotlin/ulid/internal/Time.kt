@@ -1,6 +1,6 @@
 package ulid.internal
 
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 /**
  * Require valid timestamp.
