@@ -1,0 +1,57 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <ulid-kotlin:ulid>
+abstract interface ulid.internal/Serializable // ulid.internal/Serializable|null[0]
+
+abstract interface ulid/ULID : kotlin/Comparable<ulid/ULID> { // ulid/ULID|null[0]
+    abstract val leastSignificantBits // ulid/ULID.leastSignificantBits|{}leastSignificantBits[0]
+        abstract fun <get-leastSignificantBits>(): kotlin/Long // ulid/ULID.leastSignificantBits.<get-leastSignificantBits>|<get-leastSignificantBits>(){}[0]
+    abstract val mostSignificantBits // ulid/ULID.mostSignificantBits|{}mostSignificantBits[0]
+        abstract fun <get-mostSignificantBits>(): kotlin/Long // ulid/ULID.mostSignificantBits.<get-mostSignificantBits>|<get-mostSignificantBits>(){}[0]
+    abstract val timestamp // ulid/ULID.timestamp|{}timestamp[0]
+        abstract fun <get-timestamp>(): kotlin/Long // ulid/ULID.timestamp.<get-timestamp>|<get-timestamp>(){}[0]
+
+    abstract fun increment(): ulid/ULID // ulid/ULID.increment|increment(){}[0]
+    abstract fun toBytes(): kotlin/ByteArray // ulid/ULID.toBytes|toBytes(){}[0]
+
+    abstract interface Factory { // ulid/ULID.Factory|null[0]
+        abstract fun fromBytes(kotlin/ByteArray): ulid/ULID // ulid/ULID.Factory.fromBytes|fromBytes(kotlin.ByteArray){}[0]
+        abstract fun nextULID(kotlin/Long = ...): ulid/ULID // ulid/ULID.Factory.nextULID|nextULID(kotlin.Long){}[0]
+        abstract fun parseULID(kotlin/String): ulid/ULID // ulid/ULID.Factory.parseULID|parseULID(kotlin.String){}[0]
+        abstract fun randomULID(kotlin/Long = ...): kotlin/String // ulid/ULID.Factory.randomULID|randomULID(kotlin.Long){}[0]
+    }
+
+    abstract interface Monotonic { // ulid/ULID.Monotonic|null[0]
+        abstract fun nextULID(ulid/ULID, kotlin/Long = ...): ulid/ULID // ulid/ULID.Monotonic.nextULID|nextULID(ulid.ULID;kotlin.Long){}[0]
+        abstract fun nextULIDStrict(ulid/ULID, kotlin/Long = ...): ulid/ULID? // ulid/ULID.Monotonic.nextULIDStrict|nextULIDStrict(ulid.ULID;kotlin.Long){}[0]
+
+        final object Companion : ulid/ULID.Monotonic { // ulid/ULID.Monotonic.Companion|null[0]
+            final fun nextULID(ulid/ULID, kotlin/Long): ulid/ULID // ulid/ULID.Monotonic.Companion.nextULID|nextULID(ulid.ULID;kotlin.Long){}[0]
+            final fun nextULIDStrict(ulid/ULID, kotlin/Long): ulid/ULID? // ulid/ULID.Monotonic.Companion.nextULIDStrict|nextULIDStrict(ulid.ULID;kotlin.Long){}[0]
+        }
+    }
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory, ulid/ULID.Factory { // ulid/ULID.Companion|null[0]
+        final fun Factory(kotlin.random/Random = ...): ulid/ULID.Factory // ulid/ULID.Companion.Factory|Factory(kotlin.random.Random){}[0]
+        final fun Monotonic(ulid/ULID.Factory = ...): ulid/ULID.Monotonic // ulid/ULID.Companion.Monotonic|Monotonic(ulid.ULID.Factory){}[0]
+        final fun fromBytes(kotlin/ByteArray): ulid/ULID // ulid/ULID.Companion.fromBytes|fromBytes(kotlin.ByteArray){}[0]
+        final fun nextULID(kotlin/Long): ulid/ULID // ulid/ULID.Companion.nextULID|nextULID(kotlin.Long){}[0]
+        final fun parseULID(kotlin/String): ulid/ULID // ulid/ULID.Companion.parseULID|parseULID(kotlin.String){}[0]
+        final fun randomULID(kotlin/Long): kotlin/String // ulid/ULID.Companion.randomULID|randomULID(kotlin.Long){}[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<ulid/ULID> // ulid/ULID.Companion.serializer|serializer(){}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // ulid/ULID.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+final object ulid.internal/ULIDAsStringSerializer : kotlinx.serialization/KSerializer<ulid/ULID> { // ulid.internal/ULIDAsStringSerializer|null[0]
+    final val descriptor // ulid.internal/ULIDAsStringSerializer.descriptor|{}descriptor[0]
+        final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // ulid.internal/ULIDAsStringSerializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+    final fun deserialize(kotlinx.serialization.encoding/Decoder): ulid/ULID // ulid.internal/ULIDAsStringSerializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+    final fun serialize(kotlinx.serialization.encoding/Encoder, ulid/ULID) // ulid.internal/ULIDAsStringSerializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;ulid.ULID){}[0]
+}
