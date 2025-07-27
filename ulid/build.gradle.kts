@@ -2,13 +2,13 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JsMainFunctionExecutionMode
 import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 import org.jetbrains.kotlin.gradle.dsl.JsSourceMapEmbedMode
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
     kotlin("multiplatform")
     id("com.vanniktech.maven.publish")
     id("org.jetbrains.kotlinx.kover")
-    id("binary-compatibility-validator")
     id("com.diffplug.spotless")
     id("org.jetbrains.dokka")
     alias(libs.plugins.kotlin.serialization)
@@ -38,6 +38,11 @@ kotlin {
             }
         }
         nodejs()
+    }
+
+    @OptIn(ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled.set(true)
     }
 
     if (HostManager.hostIsMac) {
