@@ -6,6 +6,9 @@
 ### Changed
 - Update Kotlin to `2.2.0`
 
+### Removed
+- Dependency on `kotlinx.datetime`
+
 # 1.4.0
 > Published 12 Jul 2025
 
