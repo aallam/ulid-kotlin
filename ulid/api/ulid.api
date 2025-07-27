@@ -22,8 +22,10 @@ public final class ulid/ULID$Companion : ulid/ULID$Factory {
 public abstract interface class ulid/ULID$Factory {
 	public abstract fun fromBytes ([B)Lulid/ULID;
 	public abstract fun nextULID (J)Lulid/ULID;
+	public static synthetic fun nextULID$default (Lulid/ULID$Factory;JILjava/lang/Object;)Lulid/ULID;
 	public abstract fun parseULID (Ljava/lang/String;)Lulid/ULID;
 	public abstract fun randomULID (J)Ljava/lang/String;
+	public static synthetic fun randomULID$default (Lulid/ULID$Factory;JILjava/lang/Object;)Ljava/lang/String;
 }
 
 public final class ulid/ULID$Factory$DefaultImpls {
@@ -34,7 +36,9 @@ public final class ulid/ULID$Factory$DefaultImpls {
 public abstract interface class ulid/ULID$Monotonic {
 	public static final field Companion Lulid/ULID$Monotonic$Companion;
 	public abstract fun nextULID (Lulid/ULID;J)Lulid/ULID;
+	public static synthetic fun nextULID$default (Lulid/ULID$Monotonic;Lulid/ULID;JILjava/lang/Object;)Lulid/ULID;
 	public abstract fun nextULIDStrict (Lulid/ULID;J)Lulid/ULID;
+	public static synthetic fun nextULIDStrict$default (Lulid/ULID$Monotonic;Lulid/ULID;JILjava/lang/Object;)Lulid/ULID;
 }
 
 public final class ulid/ULID$Monotonic$Companion : ulid/ULID$Monotonic {
