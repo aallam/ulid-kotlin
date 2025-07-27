@@ -1,6 +1,7 @@
 package ulid.internal
 
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  * Require valid timestamp.
@@ -12,4 +13,5 @@ internal fun requireTimestamp(timestamp: Long) {
 /**
  * Current epoch time in milliseconds
  */
+@OptIn(ExperimentalTime::class)
 internal fun currentTimeMillis() = Clock.System.now().toEpochMilliseconds()

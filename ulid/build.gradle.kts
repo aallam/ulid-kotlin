@@ -68,7 +68,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.kotlin.datetime)
                 implementation(libs.kotlinx.serialization.core)
             }
         }
