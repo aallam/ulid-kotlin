@@ -1,13 +1,13 @@
 # 1.5.0
 
 ### Added
-- wasmJS target
+- wasmJS target (#46) (thanks @walterbrebels)
 
 ### Changed
-- Update Kotlin to `2.2.0`
+- Update Kotlin to `2.2.0` (#46) (thanks @walterbrebels)
 
 ### Removed
-- Dependency on `kotlinx.datetime`
+- Dependency on `kotlinx.datetime` (#47)
 
 # 1.4.0
 > Published 12 Jul 2025
