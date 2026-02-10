@@ -1,3 +1,13 @@
+public final class ulid/MonotonicULIDGenerator {
+	public fun <init> ()V
+	public fun <init> (Lulid/ULID$Factory;Lulid/ULID$Monotonic;)V
+	public synthetic fun <init> (Lulid/ULID$Factory;Lulid/ULID$Monotonic;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun nextULID (J)Lulid/ULID;
+	public static synthetic fun nextULID$default (Lulid/MonotonicULIDGenerator;JILjava/lang/Object;)Lulid/ULID;
+	public final fun nextULIDStrict (J)Lulid/ULID;
+	public static synthetic fun nextULIDStrict$default (Lulid/MonotonicULIDGenerator;JILjava/lang/Object;)Lulid/ULID;
+}
+
 public abstract interface class ulid/ULID : java/lang/Comparable {
 	public static final field Companion Lulid/ULID$Companion;
 	public abstract fun getLeastSignificantBits ()J
@@ -12,6 +22,8 @@ public final class ulid/ULID$Companion : ulid/ULID$Factory {
 	public static synthetic fun Factory$default (Lulid/ULID$Companion;Lkotlin/random/Random;ILjava/lang/Object;)Lulid/ULID$Factory;
 	public final fun Monotonic (Lulid/ULID$Factory;)Lulid/ULID$Monotonic;
 	public static synthetic fun Monotonic$default (Lulid/ULID$Companion;Lulid/ULID$Factory;ILjava/lang/Object;)Lulid/ULID$Monotonic;
+	public final fun MonotonicGenerator (Lulid/ULID$Factory;)Lulid/MonotonicULIDGenerator;
+	public static synthetic fun MonotonicGenerator$default (Lulid/ULID$Companion;Lulid/ULID$Factory;ILjava/lang/Object;)Lulid/MonotonicULIDGenerator;
 	public fun fromBytes ([B)Lulid/ULID;
 	public fun nextULID (J)Lulid/ULID;
 	public fun parseULID (Ljava/lang/String;)Lulid/ULID;

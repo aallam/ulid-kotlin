@@ -122,5 +122,13 @@ public interface ULID : Comparable<ULID> {
          * @param factory ULID factory instance
          */
         public fun Monotonic(factory: Factory = ULID): Monotonic = ULIDMonotonic(factory)
+
+        /**
+         * Creates a stateful [MonotonicULIDGenerator] that internally tracks the previously generated ULID.
+         *
+         * @param factory ULID factory instance
+         */
+        public fun MonotonicGenerator(factory: Factory = ULID): MonotonicULIDGenerator =
+            MonotonicULIDGenerator(factory = factory, monotonic = Monotonic(factory))
     }
 }
