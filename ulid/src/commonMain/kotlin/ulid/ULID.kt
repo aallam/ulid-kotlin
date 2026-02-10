@@ -6,6 +6,7 @@ import ulid.internal.ULIDFactory
 import ulid.internal.ULIDFactory.Companion.Default
 import ulid.internal.ULIDMonotonic
 import ulid.internal.ULIDMonotonic.Companion.DefaultMonotonic
+import ulid.internal.ULIDStatefulMonotonic
 import ulid.internal.currentTimeMillis
 import kotlin.random.Random
 
@@ -107,6 +108,21 @@ public interface ULID : Comparable<ULID> {
 
     }
 
+    /**
+     * Stateful monotonic [ULID] factory that internally tracks the previously generated [ULID].
+     *
+     * Unlike [Monotonic], callers do not need to pass the previous ULID.
+     * Thread safety is achieved via lock-free compare-and-swap operations.
+     *
+     * [Specification](https://github.com/ulid/spec#monotonicity)
+     */
+    public interface StatefulMonotonic : Factory {
+        /**
+         * Generate the next strict monotonic [ULID], or `null` if an overflow happened.
+         */
+        public fun nextULIDStrict(timestamp: Long = currentTimeMillis()): ULID?
+    }
+
     public companion object : Factory by Default {
 
         /**
@@ -124,11 +140,11 @@ public interface ULID : Comparable<ULID> {
         public fun Monotonic(factory: Factory = ULID): Monotonic = ULIDMonotonic(factory)
 
         /**
-         * Creates a stateful [MonotonicULIDGenerator] that internally tracks the previously generated ULID.
+         * Creates an instance of [ULID.StatefulMonotonic].
          *
          * @param factory ULID factory instance
          */
-        public fun MonotonicGenerator(factory: Factory = ULID): MonotonicULIDGenerator =
-            MonotonicULIDGenerator(factory = factory, monotonic = Monotonic(factory))
+        public fun StatefulMonotonic(factory: Factory = ULID): StatefulMonotonic =
+            ULIDStatefulMonotonic(factory = factory, monotonic = Monotonic(factory))
     }
 }

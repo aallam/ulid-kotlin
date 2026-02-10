@@ -36,10 +36,14 @@ abstract interface ulid/ULID : kotlin/Comparable<ulid/ULID> { // ulid/ULID|null[
         }
     }
 
+    abstract interface StatefulMonotonic : ulid/ULID.Factory { // ulid/ULID.StatefulMonotonic|null[0]
+        abstract fun nextULIDStrict(kotlin/Long = ...): ulid/ULID? // ulid/ULID.StatefulMonotonic.nextULIDStrict|nextULIDStrict(kotlin.Long){}[0]
+    }
+
     final object Companion : kotlinx.serialization.internal/SerializerFactory, ulid/ULID.Factory { // ulid/ULID.Companion|null[0]
         final fun Factory(kotlin.random/Random = ...): ulid/ULID.Factory // ulid/ULID.Companion.Factory|Factory(kotlin.random.Random){}[0]
         final fun Monotonic(ulid/ULID.Factory = ...): ulid/ULID.Monotonic // ulid/ULID.Companion.Monotonic|Monotonic(ulid.ULID.Factory){}[0]
-        final fun MonotonicGenerator(ulid/ULID.Factory = ...): ulid/MonotonicULIDGenerator // ulid/ULID.Companion.MonotonicGenerator|MonotonicGenerator(ulid.ULID.Factory){}[0]
+        final fun StatefulMonotonic(ulid/ULID.Factory = ...): ulid/ULID.StatefulMonotonic // ulid/ULID.Companion.StatefulMonotonic|StatefulMonotonic(ulid.ULID.Factory){}[0]
         final fun fromBytes(kotlin/ByteArray): ulid/ULID // ulid/ULID.Companion.fromBytes|fromBytes(kotlin.ByteArray){}[0]
         final fun nextULID(kotlin/Long): ulid/ULID // ulid/ULID.Companion.nextULID|nextULID(kotlin.Long){}[0]
         final fun parseULID(kotlin/String): ulid/ULID // ulid/ULID.Companion.parseULID|parseULID(kotlin.String){}[0]
@@ -47,13 +51,6 @@ abstract interface ulid/ULID : kotlin/Comparable<ulid/ULID> { // ulid/ULID|null[
         final fun serializer(): kotlinx.serialization/KSerializer<ulid/ULID> // ulid/ULID.Companion.serializer|serializer(){}[0]
         final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // ulid/ULID.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
     }
-}
-
-final class ulid/MonotonicULIDGenerator { // ulid/MonotonicULIDGenerator|null[0]
-    constructor <init>(ulid/ULID.Factory = ..., ulid/ULID.Monotonic = ...) // ulid/MonotonicULIDGenerator.<init>|<init>(ulid.ULID.Factory;ulid.ULID.Monotonic){}[0]
-
-    final fun nextULID(kotlin/Long = ...): ulid/ULID // ulid/MonotonicULIDGenerator.nextULID|nextULID(kotlin.Long){}[0]
-    final fun nextULIDStrict(kotlin/Long = ...): ulid/ULID? // ulid/MonotonicULIDGenerator.nextULIDStrict|nextULIDStrict(kotlin.Long){}[0]
 }
 
 final object ulid.internal/ULIDAsStringSerializer : kotlinx.serialization/KSerializer<ulid/ULID> { // ulid.internal/ULIDAsStringSerializer|null[0]
