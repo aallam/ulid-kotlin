@@ -30,17 +30,15 @@ internal data class ULIDValue(
     }
 
     override fun compareTo(other: ULID): Int {
-        return if (mostSignificantBits < other.mostSignificantBits) -1
-        else if (mostSignificantBits > other.mostSignificantBits) 1
-        else if (leastSignificantBits < other.leastSignificantBits) -1
-        else if (leastSignificantBits > other.leastSignificantBits) 1
-        else 0
+        val msbCmp = mostSignificantBits.toULong().compareTo(other.mostSignificantBits.toULong())
+        if (msbCmp != 0) return msbCmp
+        return leastSignificantBits.toULong().compareTo(other.leastSignificantBits.toULong())
     }
 
     override fun toString(): String {
         val buffer = CharArray(26)
         buffer.write(timestamp, 10, 0)
-        var value = mostSignificantBits and Mask16Bits shl 24
+        var value = (mostSignificantBits and Mask16Bits) shl 24
         val interim = leastSignificantBits ushr 40
         value = value or interim
         buffer.write(value, 8, 10)
