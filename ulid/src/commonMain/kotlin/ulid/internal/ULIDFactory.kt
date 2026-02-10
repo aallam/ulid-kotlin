@@ -12,19 +12,19 @@ internal class ULIDFactory(private val random: Random = Random) : ULID.Factory {
 
     override fun randomULID(timestamp: Long): String {
         requireTimestamp(timestamp)
+        val bytes = random.nextBytes(10) // 80 bits of randomness (exactly what ULID needs)
         val buffer = CharArray(26)
         buffer.write(timestamp, 10, 0)
-        buffer.write(random.nextLong(), 8, 10)
-        buffer.write(random.nextLong(), 8, 18)
+        buffer.write(bytes.toLong(0, 5), 8, 10)
+        buffer.write(bytes.toLong(5, 10), 8, 18)
         return buffer.concatToString()
     }
 
     override fun nextULID(timestamp: Long): ULID {
         requireTimestamp(timestamp)
-        var mostSignificantBits = random.nextLong()
-        val leastSignificantBits = random.nextLong()
-        mostSignificantBits = mostSignificantBits and Mask16Bits // random 16 bits
-        mostSignificantBits = mostSignificantBits or (timestamp shl 16) // timestamp (32+16) + 16 random
+        val bytes = random.nextBytes(10) // 80 bits of randomness (exactly what ULID needs)
+        val mostSignificantBits = bytes.toLong(0, 2) or (timestamp shl 16) // timestamp (48 bits) + 16 random
+        val leastSignificantBits = bytes.toLong(2, 10) // 64 random bits
         return ULIDValue(mostSignificantBits, leastSignificantBits)
     }
 
@@ -61,4 +61,13 @@ internal class ULIDFactory(private val random: Random = Random) : ULID.Factory {
          */
         val Default = ULIDFactory()
     }
+}
+
+/**
+ * Construct a Long from a range of bytes in a ByteArray.
+ */
+private fun ByteArray.toLong(from: Int, to: Int): Long {
+    var result: Long = 0
+    for (i in from until to) result = (result shl 8) or (this[i].toLong() and Mask8Bits)
+    return result
 }
