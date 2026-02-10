@@ -111,6 +111,20 @@ val ulid: ULID = ULID.Monotonic.nextULID(previousULID)
 val ulidStrict: ULID? = ULID.Monotonic.nextULIDStrict(previousULID)
 ```
 
+### Stateful Monotonic Generator
+
+A thread-safe, stateful monotonic generator that internally tracks the previously generated ULID:
+
+```kotlin
+val generator = ULID.StatefulMonotonic()
+
+// generate the next monotonic ULID
+val ulid: ULID = generator.nextULID()
+
+// generate the next strict monotonic ULID, or null on overflow
+val ulidStrict: ULID? = generator.nextULIDStrict()
+```
+
 ## Specification
 
 Below is the current specification of ULID as implemented in this repository.

@@ -1,3 +1,16 @@
+# 1.6.0
+
+### Added
+- `ULID.StatefulMonotonic`: thread-safe, stateful monotonic ULID generator (#50)
+- jvm: `ULID.toUUID()` and `ULID.fromUUID()` extension functions (#49)
+
+### Changed
+- Optimize entropy generation to use exactly 80 bits of randomness (#50)
+- Update Kover to `0.9.6`, Spotless to `6.25.0`, Dokka to `2.1.0` (#50)
+
+### Fixed
+- Use unsigned comparison in `ULID.compareTo` (#49)
+
 # 1.5.0
 
 ### Added
