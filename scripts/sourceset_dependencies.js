@@ -1,0 +1,1 @@
+sourceset_dependencies='{":ulid/commonMain":[],":ulid/jsMain":[":ulid/commonMain"],":ulid/jvmMain":[":ulid/commonMain"],":ulid/linuxMain":[":ulid/nativeMain"],":ulid/linuxX64Main":[":ulid/linuxMain"],":ulid/nativeMain":[":ulid/commonMain"],":ulid/wasmJsMain":[":ulid/commonMain"]}'

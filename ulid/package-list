@@ -1,0 +1,34 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:ulid.internal////PointingToDeclaration/ulid/ulid.internal/index.html
+$dokka.location:ulid.internal/Serializable///PointingToDeclaration/ulid/ulid.internal/-serializable/index.html
+$dokka.location:ulid.internal/ULIDAsStringSerializer///PointingToDeclaration/ulid/ulid.internal/-u-l-i-d-as-string-serializer/index.html
+$dokka.location:ulid.internal/ULIDAsStringSerializer/descriptor/#/PointingToDeclaration/ulid/ulid.internal/-u-l-i-d-as-string-serializer/descriptor.html
+$dokka.location:ulid.internal/ULIDAsStringSerializer/deserialize/#kotlinx.serialization.encoding.Decoder/PointingToDeclaration/ulid/ulid.internal/-u-l-i-d-as-string-serializer/deserialize.html
+$dokka.location:ulid.internal/ULIDAsStringSerializer/serialize/#kotlinx.serialization.encoding.Encoder#ulid.ULID/PointingToDeclaration/ulid/ulid.internal/-u-l-i-d-as-string-serializer/serialize.html
+$dokka.location:ulid////PointingToDeclaration/ulid/ulid/index.html
+$dokka.location:ulid//fromUUID/ulid.ULID.Companion#java.util.UUID/PointingToDeclaration/ulid/ulid/from-u-u-i-d.html
+$dokka.location:ulid//toUUID/ulid.ULID#/PointingToDeclaration/ulid/ulid/to-u-u-i-d.html
+$dokka.location:ulid/ULID.Companion///PointingToDeclaration/ulid/ulid/-u-l-i-d/-companion/index.html
+$dokka.location:ulid/ULID.Companion/Factory/#kotlin.random.Random/PointingToDeclaration/ulid/ulid/-u-l-i-d/-companion/-factory.html
+$dokka.location:ulid/ULID.Companion/Monotonic/#ulid.ULID.Factory/PointingToDeclaration/ulid/ulid/-u-l-i-d/-companion/-monotonic.html
+$dokka.location:ulid/ULID.Companion/StatefulMonotonic/#ulid.ULID.Factory/PointingToDeclaration/ulid/ulid/-u-l-i-d/-companion/-stateful-monotonic.html
+$dokka.location:ulid/ULID.Factory///PointingToDeclaration/ulid/ulid/-u-l-i-d/-factory/index.html
+$dokka.location:ulid/ULID.Factory/fromBytes/#kotlin.ByteArray/PointingToDeclaration/ulid/ulid/-u-l-i-d/-factory/from-bytes.html
+$dokka.location:ulid/ULID.Factory/nextULID/#kotlin.Long/PointingToDeclaration/ulid/ulid/-u-l-i-d/-factory/next-u-l-i-d.html
+$dokka.location:ulid/ULID.Factory/parseULID/#kotlin.String/PointingToDeclaration/ulid/ulid/-u-l-i-d/-factory/parse-u-l-i-d.html
+$dokka.location:ulid/ULID.Factory/randomULID/#kotlin.Long/PointingToDeclaration/ulid/ulid/-u-l-i-d/-factory/random-u-l-i-d.html
+$dokka.location:ulid/ULID.Monotonic.Companion///PointingToDeclaration/ulid/ulid/-u-l-i-d/-monotonic/-companion/index.html
+$dokka.location:ulid/ULID.Monotonic///PointingToDeclaration/ulid/ulid/-u-l-i-d/-monotonic/index.html
+$dokka.location:ulid/ULID.Monotonic/nextULID/#ulid.ULID#kotlin.Long/PointingToDeclaration/ulid/ulid/-u-l-i-d/-monotonic/next-u-l-i-d.html
+$dokka.location:ulid/ULID.Monotonic/nextULIDStrict/#ulid.ULID#kotlin.Long/PointingToDeclaration/ulid/ulid/-u-l-i-d/-monotonic/next-u-l-i-d-strict.html
+$dokka.location:ulid/ULID.StatefulMonotonic///PointingToDeclaration/ulid/ulid/-u-l-i-d/-stateful-monotonic/index.html
+$dokka.location:ulid/ULID.StatefulMonotonic/nextULIDStrict/#kotlin.Long/PointingToDeclaration/ulid/ulid/-u-l-i-d/-stateful-monotonic/next-u-l-i-d-strict.html
+$dokka.location:ulid/ULID///PointingToDeclaration/ulid/ulid/-u-l-i-d/index.html
+$dokka.location:ulid/ULID/increment/#/PointingToDeclaration/ulid/ulid/-u-l-i-d/increment.html
+$dokka.location:ulid/ULID/leastSignificantBits/#/PointingToDeclaration/ulid/ulid/-u-l-i-d/least-significant-bits.html
+$dokka.location:ulid/ULID/mostSignificantBits/#/PointingToDeclaration/ulid/ulid/-u-l-i-d/most-significant-bits.html
+$dokka.location:ulid/ULID/timestamp/#/PointingToDeclaration/ulid/ulid/-u-l-i-d/timestamp.html
+$dokka.location:ulid/ULID/toBytes/#/PointingToDeclaration/ulid/ulid/-u-l-i-d/to-bytes.html
+ulid
+ulid.internal
