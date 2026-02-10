@@ -37,6 +37,11 @@ public interface ULID : Comparable<ULID> {
      */
     public fun toBytes(): ByteArray
 
+    /**
+     * Increment the random part of this [ULID] by 1.
+     *
+     * If the 80-bit random part overflows, the random part is reset to zero while the timestamp remains unchanged.
+     */
     public fun increment(): ULID
 
     /**
