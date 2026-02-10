@@ -194,7 +194,7 @@ jobs:
           gradle-version: wrapper
 
       - name: Build docs
-        run: ./gradlew dokkaHtml
+        run: ./gradlew :ulid:dokkaGenerateHtml
 
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@releases/v4
