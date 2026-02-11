@@ -45,8 +45,4 @@ internal data class ULIDValue(
         buffer.write(leastSignificantBits, 8, 18)
         return buffer.concatToString()
     }
-
-    companion object {
-        private const val serialVersionUID = 1L
-    }
 }
