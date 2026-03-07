@@ -17,6 +17,10 @@ plugins {
 kotlin {
     applyDefaultHierarchyTemplate()
 
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
     explicitApi()
     jvm()
     js(IR) {
