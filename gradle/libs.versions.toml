@@ -1,7 +1,7 @@
 [versions]
-kotlin = "2.2.0"
-kotlinx-serialization = "1.9.0"
-benchmark = "0.4.14"
+kotlin = "2.3.0"
+kotlinx-serialization = "1.10.0"
+benchmark = "0.4.16"
 
 [libraries]
 # Kotlin
@@ -16,9 +16,9 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 [plugins]
 kotlin-multiplaform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.6" }
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.7" }
 kotlinx-benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "benchmark" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-maven-publish = { id = "com.vanniktech.maven.publish", version = "0.33.0" }
-spotless = { id = "com.diffplug.spotless", version = "6.25.0" }
-dokka = { id = "org.jetbrains.dokka", version = "2.1.0" }
+maven-publish = { id = "com.vanniktech.maven.publish", version = "0.36.0" }
+spotless = { id = "com.diffplug.spotless", version = "8.3.0" }
+dokka = { id = "org.jetbrains.dokka", version = "2.2.0-Beta" }
